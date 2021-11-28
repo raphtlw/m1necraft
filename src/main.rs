@@ -344,22 +344,28 @@ fn main() {
         // if app has not been run before, then extract the mc_libs.zip
         // file into the data directory.
         if !CONFIG_PATH.get().unwrap().clone().exists() {
-            log::debug!("Creating Minecraft working directory...");
-
-            // Unpack Minecraft working directory archive
             let temp_dir = tempdir().unwrap();
-            Unzpack::unpack(
-                include_bytes!("res/mc_libs.zip"),
-                temp_dir.path().join("mc_libs.zip"),
-                APP_DATA_DIR.get().unwrap().clone(),
+            let mc_libs_zip_path = temp_dir.path().join("mc_libs.zip");
+            log::debug!("Downloading mc_libs.zip from GitHub...");
+            let mc_libs_zip_bytes = reqwest::blocking::get(
+                "https://github.com/raphtlw/m1necraft/releases/download/resources/mc_libs.zip",
             )
-            .expect("Failed to unpack resources");
+            .unwrap()
+            .bytes()
+            .unwrap();
+            fs::write(&mc_libs_zip_path, mc_libs_zip_bytes)
+                .expect("Failed to write mc_libs.zip as bytes");
+
+            log::debug!("Creating Minecraft working directory...");
+            // Unpack Minecraft working directory archive
+            Unzpack::extract(&mc_libs_zip_path, &APP_DATA_DIR.get().unwrap().clone())
+                .expect("Failed to unpack resources");
             temp_dir
                 .close()
                 .expect("Failed to delete temporary directory");
 
             // Only after unpacking the resources should the config file
-            // (AKA, the first launch checker) be created.
+            // (AKA, the first launch indicator) be created.
             Config::write(Config::default()).expect("Failed to create config file");
         }
 
