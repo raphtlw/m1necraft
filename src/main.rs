@@ -174,6 +174,10 @@ impl LoginView {
                     self.input_password.get_value(),
                 ));
             }
+            Message::LaunchGame => {
+                let rt = tokio::runtime::Runtime::new().unwrap();
+                rt.block_on(launch()).expect("Failed to launch game");
+            }
         }
     }
 }
@@ -304,6 +308,7 @@ impl ViewDelegate for LoginView {
 pub enum Message {
     InitializationCompleted,
     LoginCallback,
+    LaunchGame,
 }
 
 pub fn dispatch_ui(message: Message) {
