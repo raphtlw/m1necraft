@@ -8,13 +8,27 @@
 import SwiftUI
 
 struct LauncherView: View {
+    @ObservedObject var m: ContentView.ViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Group {
+            if m.mcLibsInstalled {
+                VStack {
+                    
+                }
+            } else {
+                VStack {
+                    Text("Setting up and installing Minecraft for you.")
+                    Text("Please wait until the process is completed.")
+                    ProgressView(m.currentSetupStatus, value: m.currentSetupProgress.fractionCompleted)
+                }
+            }
+        }.padding()
     }
 }
 
 struct LauncherView_Previews: PreviewProvider {
     static var previews: some View {
-        LauncherView()
+        LauncherView(m: ContentView.ViewModel())
     }
 }

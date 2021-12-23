@@ -14,6 +14,13 @@
 		64243ACA276D9DEE009826F8 /* M1necraftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64243AC9276D9DEE009826F8 /* M1necraftTests.swift */; };
 		64243AD4276D9DEE009826F8 /* M1necraftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64243AD3276D9DEE009826F8 /* M1necraftUITests.swift */; };
 		64243AD6276D9DEE009826F8 /* M1necraftUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64243AD5276D9DEE009826F8 /* M1necraftUITestsLaunchTests.swift */; };
+		64CA5E9D2770497400C73E3D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 64CA5E9C2770497400C73E3D /* Alamofire */; };
+		64CA5EA42771C96E00C73E3D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CA5EA32771C96E00C73E3D /* Utils.swift */; };
+		64CA5EA72771DC7800C73E3D /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 64CA5EA62771DC7800C73E3D /* ZIPFoundation */; };
+		64EAA539276F3C3200A032F1 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 64EAA538276F3C3200A032F1 /* KeychainSwift */; };
+		64EAA53B276F448E00A032F1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EAA53A276F448E00A032F1 /* LoginView.swift */; };
+		64EAA53D276F518F00A032F1 /* LauncherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EAA53C276F518F00A032F1 /* LauncherView.swift */; };
+		64EAA53F276F546000A032F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EAA53E276F546000A032F1 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +52,11 @@
 		64243ACF276D9DEE009826F8 /* M1necraftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = M1necraftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		64243AD3276D9DEE009826F8 /* M1necraftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M1necraftUITests.swift; sourceTree = "<group>"; };
 		64243AD5276D9DEE009826F8 /* M1necraftUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M1necraftUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		64CA5EA32771C96E00C73E3D /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		64CA5EA82771EE0900C73E3D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		64EAA53A276F448E00A032F1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		64EAA53C276F518F00A032F1 /* LauncherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherView.swift; sourceTree = "<group>"; };
+		64EAA53E276F546000A032F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +64,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64EAA539276F3C3200A032F1 /* KeychainSwift in Frameworks */,
+				64CA5E9D2770497400C73E3D /* Alamofire in Frameworks */,
+				64CA5EA72771DC7800C73E3D /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,9 +112,14 @@
 			children = (
 				64243AB7276D9DED009826F8 /* M1necraftApp.swift */,
 				64243AB9276D9DED009826F8 /* ContentView.swift */,
+				64EAA53E276F546000A032F1 /* Constants.swift */,
+				64EAA53A276F448E00A032F1 /* LoginView.swift */,
+				64CA5EA32771C96E00C73E3D /* Utils.swift */,
 				64243ABB276D9DEE009826F8 /* Assets.xcassets */,
 				64243AC0276D9DEE009826F8 /* M1necraft.entitlements */,
 				64243ABD276D9DEE009826F8 /* Preview Content */,
+				64EAA53C276F518F00A032F1 /* LauncherView.swift */,
+				64CA5EA82771EE0900C73E3D /* README.md */,
 			);
 			path = M1necraft;
 			sourceTree = "<group>";
@@ -145,6 +165,11 @@
 			dependencies = (
 			);
 			name = M1necraft;
+			packageProductDependencies = (
+				64EAA538276F3C3200A032F1 /* KeychainSwift */,
+				64CA5E9C2770497400C73E3D /* Alamofire */,
+				64CA5EA62771DC7800C73E3D /* ZIPFoundation */,
+			);
 			productName = M1necraft;
 			productReference = 64243AB4276D9DED009826F8 /* M1necraft.app */;
 			productType = "com.apple.product-type.application";
@@ -217,6 +242,11 @@
 				Base,
 			);
 			mainGroup = 64243AAB276D9DED009826F8;
+			packageReferences = (
+				64EAA537276F3C3200A032F1 /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				64CA5E9B2770497400C73E3D /* XCRemoteSwiftPackageReference "Alamofire" */,
+				64CA5EA52771DC7800C73E3D /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+			);
 			productRefGroup = 64243AB5276D9DED009826F8 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -259,8 +289,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64EAA53F276F546000A032F1 /* Constants.swift in Sources */,
+				64EAA53B276F448E00A032F1 /* LoginView.swift in Sources */,
 				64243ABA276D9DED009826F8 /* ContentView.swift in Sources */,
+				64EAA53D276F518F00A032F1 /* LauncherView.swift in Sources */,
 				64243AB8276D9DED009826F8 /* M1necraftApp.swift in Sources */,
+				64CA5EA42771C96E00C73E3D /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,6 +604,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		64CA5E9B2770497400C73E3D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		64CA5EA52771DC7800C73E3D /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.9;
+			};
+		};
+		64EAA537276F3C3200A032F1 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		64CA5E9C2770497400C73E3D /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64CA5E9B2770497400C73E3D /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		64CA5EA62771DC7800C73E3D /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64CA5EA52771DC7800C73E3D /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+		64EAA538276F3C3200A032F1 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64EAA537276F3C3200A032F1 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 64243AAC276D9DED009826F8 /* Project object */;
 }
