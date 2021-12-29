@@ -1,6 +1,7 @@
 mod config;
 mod launcher;
 
+use cacao::utils::async_main_thread;
 use launcher::*;
 use std::{fs, path::PathBuf, thread};
 
@@ -14,7 +15,7 @@ use cacao::notification_center::Dispatcher;
 use cacao::progress::{ProgressIndicator, ProgressIndicatorStyle};
 use cacao::text::{Font, Label};
 use cacao::view::{View, ViewDelegate};
-use config::Config;
+use config::{Config, MinecraftCredentials};
 use once_cell::sync::OnceCell;
 use tempfile::tempdir;
 use unzpack::Unzpack;
@@ -81,33 +82,130 @@ impl AppDelegate for MainApp {
     }
 }
 
-/// Nothing to do with the app struct so we pass the messages down
+/// Handle all the UI related messages here, like
+/// User input, button presses, etc.
 impl Dispatcher for MainApp {
     type Message = Message;
 
     fn on_ui_message(&self, message: Self::Message) {
-        self.window.delegate.as_ref().unwrap().on_message(message);
+        match message {
+            Message::InitializationCompleted => {
+                log::debug!("App initialization complete");
+
+                // Stop initialization progress indicator
+                self.window
+                    .delegate
+                    .as_ref()
+                    .unwrap()
+                    .login_view
+                    .delegate
+                    .as_ref()
+                    .unwrap()
+                    .initialization_indicator
+                    .set_hidden(true);
+
+                // Check if setup has been done before
+                let config = Config::read().unwrap();
+                if config.setup_complete {
+                    self.window
+                        .delegate
+                        .as_ref()
+                        .unwrap()
+                        .launcher_view
+                        .delegate
+                        .as_ref()
+                        .unwrap()
+                        .progress_bar
+                        .set_hidden(true);
+                } else {
+                    self.window
+                        .delegate
+                        .as_ref()
+                        .unwrap()
+                        .launcher_view
+                        .delegate
+                        .as_ref()
+                        .unwrap()
+                        .button_launch_game
+                        .set_hidden(true);
+                    Message::dispatch(Message::SetSetupProgress(
+                        Some(String::from("Initializing Minecraft files")),
+                        0.0,
+                    ))
+                }
+
+                async_main_thread(|| {
+                    let rt = tokio::runtime::Runtime::new().unwrap();
+                    rt.block_on(setup_libs()).unwrap();
+                });
+            }
+            Message::LaunchGame => async_main_thread(|| {
+                let rt = tokio::runtime::Runtime::new().unwrap();
+                rt.block_on(launch()).expect("Failed to launch game");
+            }),
+            Message::LoginCallback => {
+                let login_view = self
+                    .window
+                    .delegate
+                    .as_ref()
+                    .unwrap()
+                    .login_view
+                    .delegate
+                    .as_ref()
+                    .unwrap();
+                let username = login_view.input_username.get_value();
+                let password = login_view.input_password.get_value();
+
+                // Closure is, according to the language specification,
+                // able to be called more than once, which means
+                // you cannot move variables outside of the closure to
+                // the inside of the closure without cloning the variable
+                // first.
+                async_main_thread(move || {
+                    // Store username and password in config file
+                    let mut config = Config::read().unwrap();
+                    config.minecraft_creds = MinecraftCredentials {
+                        username: username.clone(),
+                        password: password.clone(),
+                    };
+                    Config::write(config).unwrap();
+                });
+            }
+            Message::SetSetupProgress(status, progress) => {
+                let progress_view = self
+                    .window
+                    .delegate
+                    .as_ref()
+                    .unwrap()
+                    .launcher_view
+                    .delegate
+                    .as_ref()
+                    .unwrap()
+                    .progress_bar
+                    .delegate
+                    .as_ref()
+                    .unwrap();
+                if let Some(status) = status {
+                    progress_view.label.set_text(status)
+                };
+                progress_view.progress.set_value(progress);
+            }
+        }
     }
 }
 
 #[derive(Debug)]
 struct AppWindow {
     login_view: View<LoginView>,
+    launcher_view: View<LauncherView>,
 }
 
 impl AppWindow {
     fn new() -> Self {
         Self {
             login_view: View::with(LoginView::new()),
+            launcher_view: View::with(LauncherView::new()),
         }
-    }
-
-    fn on_message(&self, message: Message) {
-        self.login_view
-            .delegate
-            .as_ref()
-            .unwrap()
-            .on_message(message);
     }
 }
 
@@ -118,21 +216,26 @@ impl WindowDelegate for AppWindow {
         window.set_title("M1necraft");
         window.set_minimum_content_size(300.0, 300.0);
         window.set_content_size(600.0, 400.0);
-        window.set_content_view(&self.login_view);
+
+        if let Ok(config) = Config::read() {
+            if config.minecraft_creds.username.len() > 0 {
+                window.set_content_view(&self.launcher_view);
+            }
+        } else {
+            window.set_content_view(&self.login_view);
+        }
     }
 }
 
-/// Should be run after the user logs in either
-/// as a guest or a normal user.
-pub async fn after_login(username: String, password: String) {
-    log::debug!("Starting post login setup");
-
-    let mut config = Config::read().unwrap();
-    config.minecraft_creds.username = username;
-    config.minecraft_creds.password = password;
+/// Should be run as soon as app initialization is completed.
+/// Does not depend on authentication credentials.
+pub async fn setup_libs() -> Result<(), Box<dyn std::error::Error>> {
+    log::debug!("Starting mc_libs setup");
 
     download_mc_libraries().await.unwrap();
     download_mc_assets().await.unwrap();
+
+    Ok(())
 }
 
 #[derive(Debug)]
@@ -144,7 +247,7 @@ struct LoginView {
     input_password: TextField,
     button_no_account: Button,
     button_submit: Button,
-    spinny_wheel: ProgressIndicator,
+    initialization_indicator: ProgressIndicator,
 }
 
 impl LoginView {
@@ -157,27 +260,7 @@ impl LoginView {
             input_password: TextField::new(),
             button_no_account: Button::new("Continue without account"),
             button_submit: Button::new("Next"),
-            spinny_wheel: ProgressIndicator::new(),
-        }
-    }
-
-    pub fn on_message(&self, message: Message) {
-        match message {
-            Message::InitializationCompleted => {
-                log::debug!("Initialization complete");
-                self.spinny_wheel.set_hidden(true);
-            }
-            Message::LoginCallback => {
-                let rt = tokio::runtime::Runtime::new().unwrap();
-                rt.block_on(after_login(
-                    self.input_username.get_value(),
-                    self.input_password.get_value(),
-                ));
-            }
-            Message::LaunchGame => {
-                let rt = tokio::runtime::Runtime::new().unwrap();
-                rt.block_on(launch()).expect("Failed to launch game");
-            }
+            initialization_indicator: ProgressIndicator::new(),
         }
     }
 }
@@ -197,24 +280,17 @@ impl ViewDelegate for LoginView {
         self.button_no_account.set_action(|| {
             log::debug!("button_no_account clicked");
 
-            // let rt = tokio::runtime::Runtime::new().unwrap();
-
-            // rt.block_on(after_login(username, password));
-
-            dispatch_ui(Message::LoginCallback);
+            todo!("Handle no account, ask for player name");
         });
         self.button_submit.set_action(|| {
             log::debug!("button_submit clicked");
 
-            // let rt = tokio::runtime::Runtime::new().unwrap();
-
-            // rt.block_on(after_login(username, password));
-
-            dispatch_ui(Message::LoginCallback);
+            Message::dispatch(Message::LoginCallback);
         });
 
-        self.spinny_wheel.start_animation();
-        self.spinny_wheel.set_style(ProgressIndicatorStyle::Spinner);
+        self.initialization_indicator.start_animation();
+        self.initialization_indicator
+            .set_style(ProgressIndicatorStyle::Spinner);
 
         view.add_subview(&self.label_title);
         view.add_subview(&self.label_username);
@@ -222,7 +298,7 @@ impl ViewDelegate for LoginView {
         view.add_subview(&self.input_username);
         view.add_subview(&self.input_password);
         view.add_subview(&self.button_no_account);
-        view.add_subview(&self.spinny_wheel);
+        view.add_subview(&self.initialization_indicator);
         view.add_subview(&self.button_submit);
 
         LayoutConstraint::activate(&[
@@ -281,14 +357,14 @@ impl ViewDelegate for LoginView {
                 .center_x
                 .constraint_equal_to(&view.center_x),
             //
-            self.spinny_wheel
+            self.initialization_indicator
                 .center_y
                 .constraint_equal_to(&self.button_submit.center_y),
-            self.spinny_wheel
+            self.initialization_indicator
                 .trailing
                 .constraint_equal_to(&self.button_submit.leading)
                 .offset(-8.),
-            self.spinny_wheel
+            self.initialization_indicator
                 .height
                 .constraint_equal_to(&self.button_submit.height),
             //
@@ -304,64 +380,174 @@ impl ViewDelegate for LoginView {
     }
 }
 
+#[derive(Debug)]
+struct LauncherView {
+    label_title: Label,
+    button_launch_game: Button,
+    progress_bar: View<SetupProgressView>,
+    initialization_indicator: ProgressIndicator,
+}
+
+impl LauncherView {
+    pub fn new() -> Self {
+        Self {
+            label_title: Label::new(),
+            button_launch_game: Button::new("Launch Minecraft 1.16.4"),
+            progress_bar: View::with(SetupProgressView::new()),
+            initialization_indicator: ProgressIndicator::new(),
+        }
+    }
+}
+
+impl ViewDelegate for LauncherView {
+    const NAME: &'static str = "LauncherView";
+
+    fn did_load(&mut self, view: View) {
+        self.label_title.set_text("Minecraft");
+        self.label_title.set_font(Font::bold_system(28.));
+
+        view.add_subview(&self.label_title);
+        view.add_subview(&self.button_launch_game);
+        view.add_subview(&self.progress_bar);
+        view.add_subview(&self.initialization_indicator);
+
+        LayoutConstraint::activate(&[
+            self.label_title
+                .center_x
+                .constraint_equal_to(&view.center_x),
+            self.label_title
+                .top
+                .constraint_equal_to(&view.top)
+                .offset(20.),
+            //
+            self.button_launch_game
+                .center_x
+                .constraint_equal_to(&view.center_x),
+            self.button_launch_game
+                .center_y
+                .constraint_equal_to(&view.center_y),
+            //
+            self.progress_bar
+                .center_x
+                .constraint_equal_to(&view.center_x),
+            self.progress_bar
+                .top
+                .constraint_equal_to(&self.button_launch_game.bottom),
+            //
+            self.initialization_indicator
+                .center_x
+                .constraint_equal_to(&view.center_x),
+            self.initialization_indicator
+                .top
+                .constraint_equal_to(&self.progress_bar.bottom),
+        ]);
+    }
+}
+
+#[derive(Debug)]
+struct SetupProgressView {
+    pub label: Label,
+    pub progress: ProgressIndicator,
+}
+
+impl SetupProgressView {
+    pub fn new() -> Self {
+        Self {
+            label: Label::new(),
+            progress: ProgressIndicator::new(),
+        }
+    }
+}
+
+impl ViewDelegate for SetupProgressView {
+    const NAME: &'static str = "SetupProgressView";
+
+    fn did_load(&mut self, view: View) {
+        self.label.set_text("Downloading libraries");
+        self.progress.set_style(ProgressIndicatorStyle::Bar);
+
+        view.add_subview(&self.label);
+        view.add_subview(&self.progress);
+
+        LayoutConstraint::activate(&[
+            self.label
+                .bottom
+                .constraint_equal_to(&self.progress.top)
+                .offset(100.),
+            self.label
+                .top
+                .constraint_greater_than_or_equal_to(&view.top),
+            self.label.left.constraint_equal_to(&self.progress.left),
+            self.progress
+                .center_x
+                .constraint_greater_than_or_equal_to(&view.center_x),
+            self.progress
+                .center_y
+                .constraint_greater_than_or_equal_to(&view.center_y),
+        ]);
+    }
+}
+
 #[derive(Clone, Debug)]
 pub enum Message {
     InitializationCompleted,
     LoginCallback,
     LaunchGame,
+    SetSetupProgress(Option<String>, f64),
 }
 
-pub fn dispatch_ui(message: Message) {
-    log::debug!("Dispatching UI message: {:?}", message);
-    App::<MainApp, Message>::dispatch_main(message);
+impl Message {
+    pub fn dispatch(message: Message) {
+        log::debug!("Dispatching UI message: {:?}", message);
+        App::<MainApp, Message>::dispatch_main(message);
+    }
 }
 
 fn main() {
     pretty_env_logger::init();
 
+    // Initialize Paths
+    APP_DATA_DIR
+        .set(dirs::data_local_dir().unwrap().join(APP_BUNDLE_ID))
+        .unwrap();
+    if !APP_DATA_DIR.get().unwrap().exists() {
+        log::debug!("App data directory does not exist, creating...");
+        fs::create_dir(APP_DATA_DIR.get().unwrap().clone())
+            .expect("Failed to create app data directory");
+    }
+    log::debug!("APP_DATA_DIR: {:#?}", APP_DATA_DIR.get().unwrap());
+
+    CONFIG_PATH
+        .set(APP_DATA_DIR.get().unwrap().clone().join("config.json"))
+        .unwrap();
+    log::debug!("CONFIG_PATH: {:#?}", CONFIG_PATH.get().unwrap());
+
+    MC_LIBS_PATH
+        .set(PathBuf::from(
+            APP_DATA_DIR.get().unwrap().clone().join("mc_libs"),
+        ))
+        .unwrap();
+    log::debug!("MC_LIBS_PATH: {:#?}", MC_LIBS_PATH.get().unwrap());
+
     let app_init_thread = thread::spawn(|| {
         log::debug!("app_init_thread started");
 
-        APP_DATA_DIR
-            .set(dirs::data_local_dir().unwrap().join(APP_BUNDLE_ID))
-            .unwrap();
-        if !APP_DATA_DIR.get().unwrap().exists() {
-            log::debug!("App data directory does not exist, creating...");
-            fs::create_dir(APP_DATA_DIR.get().unwrap().clone())
-                .expect("Failed to create app data directory");
-        }
-        log::debug!("APP_DATA_DIR: {:#?}", APP_DATA_DIR.get().unwrap());
-
-        CONFIG_PATH
-            .set(APP_DATA_DIR.get().unwrap().clone().join("config.json"))
-            .unwrap();
-        log::debug!("CONFIG_PATH: {:#?}", CONFIG_PATH.get().unwrap());
-
-        MC_LIBS_PATH
-            .set(PathBuf::from(
-                APP_DATA_DIR.get().unwrap().clone().join("mc_libs"),
-            ))
-            .unwrap();
-        log::debug!("MC_LIBS_PATH: {:#?}", MC_LIBS_PATH.get().unwrap());
-
         // Setup mc_libs stuff
-        // Uses CONFIG_PATH to check if app has been run before,
-        // if app has not been run before, then extract the mc_libs.zip
-        // file into the data directory.
-        if !CONFIG_PATH.get().unwrap().clone().exists() {
+        // Checks if mc_libs has been fully downloaded & extracted previously
+        if !MC_LIBS_PATH.get().unwrap().clone().exists() {
             let temp_dir = tempdir().unwrap();
             let mc_libs_zip_path = temp_dir.path().join("mc_libs.zip");
+            log::debug!("mc_libs.zip path: {:#?}", &mc_libs_zip_path);
+            let mut mc_libs_zip_file = fs::File::create(&mc_libs_zip_path).unwrap();
             log::debug!("Downloading mc_libs.zip from GitHub...");
-            let mc_libs_zip_bytes = reqwest::blocking::get(
+            reqwest::blocking::get(
                 "https://github.com/raphtlw/m1necraft/releases/download/resources/mc_libs.zip",
             )
-            .unwrap()
-            .bytes()
-            .unwrap();
-            fs::write(&mc_libs_zip_path, mc_libs_zip_bytes)
-                .expect("Failed to write mc_libs.zip as bytes");
+            .expect("Failed to download mc_libs.zip")
+            .copy_to(&mut mc_libs_zip_file)
+            .expect("Failed to write mc_libs.zip as bytes");
 
-            log::debug!("Creating Minecraft working directory...");
+            log::debug!("Extracting mc_libs.zip");
             // Unpack Minecraft working directory archive
             Unzpack::extract(&mc_libs_zip_path, &APP_DATA_DIR.get().unwrap().clone())
                 .expect("Failed to unpack resources");
@@ -375,7 +561,7 @@ fn main() {
         }
 
         // Let UI thread know that app initialization has completed
-        dispatch_ui(Message::InitializationCompleted);
+        Message::dispatch(Message::InitializationCompleted);
     });
 
     App::new(

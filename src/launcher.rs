@@ -10,6 +10,7 @@ use serde_json::{Value, json};
 use indoc::formatdoc;
 
 use crate::{MC_LIBS_PATH, APP_DATA_DIR};
+use crate::{Message};
 use crate::config::{MinecraftCredentials, Config};
 
 pub async fn download_file<T>(url: T, custom_file_name: Option<&str>) -> Result<(), Box<dyn Error>>
@@ -47,6 +48,8 @@ pub async fn download_mc_libraries() -> Result<(), Box<dyn Error>> {
         p.push("libraries");
         p
     })?;
+    
+    Message::dispatch(Message::SetSetupProgress(Some(String::from("Downloading Minecraft libraries")), 0.1));
     
     if let Err(_) = futures::try_join!(
             // Specify library urls here
@@ -92,6 +95,8 @@ pub async fn download_mc_libraries() -> Result<(), Box<dyn Error>> {
         process::exit(1);
     }
     
+    Message::dispatch(Message::SetSetupProgress(None, 1.0));
+    
     env::set_current_dir(cwd)?;
 
     Ok(())
@@ -103,9 +108,13 @@ pub enum AssetObjectVecType {
     Object(Value),
 }
 
+/// Downloads all assets required for Minecraft to run, like objects, textures,
+/// etc.
 pub async fn download_mc_assets() -> Result<(), Box<dyn Error>> {
     let cwd = env::current_dir().unwrap();
     env::set_current_dir(crate::MC_LIBS_PATH.get().unwrap().clone()).unwrap();
+    
+    Message::dispatch(Message::SetSetupProgress(Some(String::from("Downloading Minecraft assets")), 0.1));
     
     let mut index_path = env::current_dir()?;
     index_path.push("assets");
@@ -113,6 +122,8 @@ pub async fn download_mc_assets() -> Result<(), Box<dyn Error>> {
     index_path.push("1.16.json");
     let index = reqwest::get("https://launchermeta.mojang.com/v1/packages/f8e11ca03b475dd655755b945334c7a0ac2c3b43/1.16.json").await?.bytes().await?;
     fs::write(index_path, &index)?;
+    
+    Message::dispatch(Message::SetSetupProgress(None, 0.3));
     
     let assets: Value = serde_json::from_str(&String::from_utf8_lossy(index.deref()))?;
     let obj = &assets["objects"];
@@ -138,11 +149,18 @@ pub async fn download_mc_assets() -> Result<(), Box<dyn Error>> {
         }
     }
     
+    Message::dispatch(Message::SetSetupProgress(None, 1.0));
+    
     env::set_current_dir(cwd).unwrap();
     
     Ok(())
 }
 
+/// Launches Minecraft. Only works for version 1.16.4 for now.
+/// Should be called only after login credentials have been saved,
+/// because this function will authenticate with Minecraft servers.
+/// 
+/// TODO: This probably does not work, should fix.
 pub async fn launch() -> Result<(), Box<dyn Error>> {
     let _cwd = env::current_dir()?;
     env::set_current_dir(MC_LIBS_PATH.get().unwrap().clone())?;

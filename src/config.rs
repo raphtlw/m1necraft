@@ -4,6 +4,7 @@ use std::{fs, io};
 #[derive(Serialize, Deserialize, Default)]
 pub struct Config {
     pub minecraft_creds: MinecraftCredentials,
+    pub setup_complete: bool,
 }
 
 impl Config {

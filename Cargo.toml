@@ -1,5 +1,6 @@
 [package]
 name = "m1necraft"
+description = "Minecraft compiled for Apple Silicon."
 version = "0.1.0"
 edition = "2021"
 
@@ -19,3 +20,18 @@ dirs = "4.0"
 once_cell = "1.8"
 tempfile = "3.2.0"
 indoc = "1.0"
+
+[package.metadata.bundle]
+name = "M1necraft"
+identifier = "raphtlw.apps.M1necraft"
+icon = ["res/icons/32x32.png",
+        "res/icons/64x64.png",
+        "res/icons/128x128.png",
+        "res/icons/128x128@2x.png"]
+copyright = "Copyright (c) 2021 Raphael Tang under the GNU GPLv3. All rights reserved."
+category = "Game"
+short_description = "Minecraft for Apple Silicon"
+long_description = """
+Enjoy Minecraft to it's fullest.
+M1necraft gives you an easy way to run Minecraft directly compiled and optimized for Apple Silicon chips.
+"""
