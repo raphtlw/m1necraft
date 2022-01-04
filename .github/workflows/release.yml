@@ -1,0 +1,18 @@
+on:
+  release:
+    types: [published]
+    
+
+jobs:
+  generate_checksum:
+    name: Generate checksum
+    runs-on: ubuntu-latest
+    if: github.ref == "resources"
+    steps:
+      - uses: MCJack123/ghaction-generate-release-hashes@v1
+        with:
+          hash-type: md5
+          file-name: checksums.txt
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: checksums.txt
