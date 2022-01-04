@@ -6,7 +6,7 @@ jobs:
   generate_checksum:
     name: Generate checksum
     runs-on: ubuntu-latest
-    if: github.ref == resources
+    if: github.ref == 'resources'
     steps:
       - uses: MCJack123/ghaction-generate-release-hashes@v1
         with:
