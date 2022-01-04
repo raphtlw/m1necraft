@@ -25,3 +25,14 @@ jobs:
               ref: "refs/tags/resources",
               sha: context.sha
             })
+            const releaseId = await github.rest.repos.getReleaseByTag({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag: "resources"
+            })
+            await github.rest.repos.updateRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: releaseId,
+              draft: false
+            })
