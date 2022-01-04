@@ -10,12 +10,16 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            github.rest.git.deleteRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: "tags/resources"
-            })
-            github.rest.git.createRef({
+            try {
+              await github.rest.git.deleteRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: "tags/resources"
+              })
+            } catch (e) {
+              console.log("Resources tag does not exist yet: ", e)
+            }
+            await github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: "refs/tags/resources",
