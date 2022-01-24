@@ -3,6 +3,8 @@
 ```
 rename versions/1.16.5 to 1.16.5-arm
 rename versions/1.16.5-arm/1.16.5.json to 1.16.5-arm.json
+put lwjglfat.jar in libraries
+put lwjglnatives in /
 edit 1.16.5-arm.json:
      change id property to match version name 1.16.5-arm
      remove all entries in "libraries" property that contains any of the lwjgl libraries
