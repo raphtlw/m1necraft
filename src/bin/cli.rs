@@ -90,8 +90,11 @@ async fn main() {
         Commands::Install { version } => {
             if !values::SUPPORTED_VERSIONS.contains(&version.as_str()) {
                 // Version is not supported
-                log::error!("Version {} is not supported yet.", &version);
-                log::error!("Supported versions: {:#?}", values::SUPPORTED_VERSIONS);
+                log::error!("Version {} is not supported yet 😕", &version);
+                log::error!(
+                    "Supported versions: \n  {}",
+                    values::SUPPORTED_VERSIONS.join("\n")
+                );
                 process::exit(1);
             }
 
