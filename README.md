@@ -17,6 +17,10 @@
   </a>
 </p>
 
+### [Installation Steps](https://raph.codes/projects/m1necraft)
+
+☝️
+
 Run Minecraft natively on Apple Silicon, easily.
 Optimizations to the Minecraft installation are also pre-configured to give you the best performance and stability.
 Everything from the launcher to the actual game is optimized well enough such that you can literally just launch and play.
