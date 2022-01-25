@@ -43,7 +43,7 @@ A command line interface, very useful for testing and automating the functionali
 
 ## Build instructions
 
-Builds are done per-workspace. You'll have to run `cargo build`
+You'll have to run `cargo build --bin m1necraft`, where bin should specify which binary you want to run, or just run `cargo build` to build everything.
 
 ## Attributions
 
