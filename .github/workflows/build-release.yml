@@ -1,0 +1,45 @@
+# on:
+#   push:
+#     tags:
+#       - "v*.*.*"
+
+on:
+  push:
+    branches: [main]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: cargo build --release --verbose
+      - name: Move & rename
+        shell: bash
+        run: mv target/release/cli ./m1necraft-$RUNNER_OS-$RUNNER_ARCH
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build_artifacts
+          path: ./m1necraft*
+          retention-days: 1
+      - run: rm -rf ./m1necraft*
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: build_artifacts
+      - run: tree -a
+      # - name: Release
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     files: ${{ github.workspace }}/m1necraft*
+      #     generate_release_notes: true
