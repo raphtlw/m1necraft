@@ -1,11 +1,11 @@
-# on:
-#   push:
-#     tags:
-#       - "v*.*.*"
-
 on:
   push:
-    branches: [main]
+    tags:
+      - "v*.*.*"
+
+# on:
+#   push:
+#     branches: [main]
 
 env:
   CARGO_TERM_COLOR: always
@@ -37,9 +37,8 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: build_artifacts
-      - run: tree -a
-      # - name: Release
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     files: ${{ github.workspace }}/m1necraft*
-      #     generate_release_notes: true
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ github.workspace }}/m1necraft*
+          generate_release_notes: true
