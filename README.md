@@ -41,9 +41,18 @@ A graphical interface that makes use of the macOS Cocoa APIs to show a nice UI t
 
 A command line interface, very useful for testing and automating the functionality of the program.
 
-## Build instructions
+## Developer instructions
+
+### Build instructions
 
 You'll have to run `cargo build --bin m1necraft`, where bin should specify which binary you want to run, or just run `cargo build` to build everything.
+
+### Creating releases
+
+In this repository, releases are automatically built and published when a new tag is created. Create a new Git tag, push it, and a new release will automatically be built.
+
+After the new tag has been pushed, you'll also need to update the Homebrew formula.
+Increment the version in the tarball URL and push the changes.
 
 ## Attributions
 
