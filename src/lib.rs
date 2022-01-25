@@ -21,6 +21,10 @@ pub mod strings {
     pub const ZIP_MACOSX_METADATA_FOLDER: &str = "__MACOSX";
 }
 
+pub mod values {
+    pub const SUPPORTED_VERSIONS: &[&str] = &["1.16.5"];
+}
+
 // pub static APP_DATA_DIR: OnceCell<PathBuf> = OnceCell::new();
 // pub static CONFIG_PATH: OnceCell<PathBuf> = OnceCell::new();
 // pub static MINECRAFT_DATA_PATH: OnceCell<PathBuf> = OnceCell::new();

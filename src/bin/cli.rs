@@ -4,7 +4,7 @@ use api::{
     mcl::check_minecraft_launcher_paths,
     strings,
     utils::{download_artifact, extract_zip_file},
-    GlobalPaths, Result,
+    values, GlobalPaths, Result,
 };
 use chrono::Utc;
 use clap::{Parser, Subcommand};
@@ -88,7 +88,12 @@ async fn main() {
 
     match &args.command {
         Commands::Install { version } => {
-            log::debug!("START PATCHING MINECRAFT LAUNCHER");
+            if !values::SUPPORTED_VERSIONS.contains(&version.as_str()) {
+                // Version is not supported
+                log::error!("Version {} is not supported yet.", &version);
+                log::error!("Supported versions: {:#?}", values::SUPPORTED_VERSIONS);
+                process::exit(1);
+            }
 
             // Check if all the Minecraft Launcher paths exist
             if !check_minecraft_launcher_paths() {
@@ -225,45 +230,38 @@ async fn main() {
 
             // add launcher profile
             bar.set_message("Adding launcher profile");
-            match version.as_str() {
-                "1.16.5" => {
-                    let file = fs::File::open(&paths.mcl_launcher_profiles).unwrap();
-                    let reader = BufReader::new(file);
-                    // Using Value bc the type will always morph
-                    let launcher_profiles: Value = serde_json::from_reader(reader).unwrap();
-                    let launcher_profile_key =
-                        format!("{}{}", strings::LAUNCHER_PROFILE_KEY_PREFIX, version);
-                    if launcher_profiles["profiles"][&launcher_profile_key].is_null() {
-                        log::info!("Launcher profile does not exist, creating...");
-                        let custom_launcher_profile = json!({
-                            "created": Utc::now().to_rfc3339(),
-                            "icon": "Grass",
-                            "javaDir": paths.mcl_jre.join("Contents/Home/bin/java"),
-                            "lastVersionId": profile_name,
-                            "name": "M1necraft",
-                            "type": "custom"
-                        });
-                        let mut modified_launcher_profiles = launcher_profiles.clone();
-                        modified_launcher_profiles["profiles"]
-                            .as_object_mut()
-                            .unwrap()
-                            .insert(launcher_profile_key, custom_launcher_profile);
-                        log::debug!(
-                            "Modified launcher_profiles.json: {:#?}",
-                            &modified_launcher_profiles
-                        );
-                        fs::write(
-                            &paths.mcl_launcher_profiles,
-                            serde_json::to_string_pretty(&modified_launcher_profiles).unwrap(),
-                        )
-                        .expect("Failed to write new launcher_profiles.json file");
-                    }
-                }
-                _ => {
-                    log::error!("ERROR: Invalid version specified {}", version);
-                    process::exit(1);
-                }
-            };
+
+            let file = fs::File::open(&paths.mcl_launcher_profiles).unwrap();
+            let reader = BufReader::new(file);
+            // Using Value bc the type will always morph
+            let launcher_profiles: Value = serde_json::from_reader(reader).unwrap();
+            let launcher_profile_key =
+                format!("{}{}", strings::LAUNCHER_PROFILE_KEY_PREFIX, version);
+            if launcher_profiles["profiles"][&launcher_profile_key].is_null() {
+                log::info!("Launcher profile does not exist, creating...");
+                let custom_launcher_profile = json!({
+                    "created": Utc::now().to_rfc3339(),
+                    "icon": "Grass",
+                    "javaDir": paths.mcl_jre.join("Contents/Home/bin/java"),
+                    "lastVersionId": profile_name,
+                    "name": "M1necraft",
+                    "type": "custom"
+                });
+                let mut modified_launcher_profiles = launcher_profiles.clone();
+                modified_launcher_profiles["profiles"]
+                    .as_object_mut()
+                    .unwrap()
+                    .insert(launcher_profile_key, custom_launcher_profile);
+                log::debug!(
+                    "Modified launcher_profiles.json: {:#?}",
+                    &modified_launcher_profiles
+                );
+                fs::write(
+                    &paths.mcl_launcher_profiles,
+                    serde_json::to_string_pretty(&modified_launcher_profiles).unwrap(),
+                )
+                .expect("Failed to write new launcher_profiles.json file");
+            }
 
             bar.set_message("Done");
 
