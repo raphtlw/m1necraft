@@ -10,6 +10,10 @@ edition = "2021"
 [lib]
 name = "api"
 
+[[bin]]
+name = "m1necraft"
+path = "src/bin/cli.rs"
+
 [target.'cfg(target_os = "macos")'.dependencies]
 cacao = "0.2.1"
 

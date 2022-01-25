@@ -22,7 +22,7 @@ jobs:
         run: cargo build --bin cli --release --verbose
       - name: Move & rename
         shell: bash
-        run: mv target/release/cli ./m1necraft-$RUNNER_OS-$RUNNER_ARCH
+        run: mv target/release/m1necraft ./m1necraft-$RUNNER_OS-$RUNNER_ARCH
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
