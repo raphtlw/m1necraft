@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build
-        run: cargo build --bin cli --release --verbose
+        run: cargo build --bin m1necraft --release --verbose
       - name: Move & rename
         shell: bash
         run: mv target/release/m1necraft ./m1necraft-$RUNNER_OS-$RUNNER_ARCH
