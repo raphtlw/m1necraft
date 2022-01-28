@@ -83,6 +83,11 @@ impl GlobalPaths {
             res_jre: None,
         };
 
+        if !paths.app_data_dir.exists() {
+            log::debug!("Data directory does not exist, creating...");
+            fs_extra::dir::create_all(app_data_dir, false).unwrap();
+        }
+
         paths.set_optional().unwrap();
         PATHS.set(paths.clone()).unwrap();
 
