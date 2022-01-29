@@ -42,3 +42,12 @@ jobs:
         with:
           files: ${{ github.workspace }}/m1necraft*
           generate_release_notes: true
+  bump-homebrew-formula:
+    runs-on: macos-latest
+    steps:
+      - name: Homebrew bump formula
+        uses: dawidd6/action-homebrew-bump-formula@v3
+        with:
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+          tap: raphtlw/homebrew-tap
+          formula: m1necraft
