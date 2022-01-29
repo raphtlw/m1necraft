@@ -19,6 +19,7 @@ pub mod strings {
     pub const JAVA_8_ZIP: &str = "jre8.zip";
     pub const LAUNCHER_PROFILE_KEY_PREFIX: &str = "m1necraft-";
     pub const ZIP_MACOSX_METADATA_FOLDER: &str = "__MACOSX";
+    pub const APP_VERSION: &str = env!("CARGO_PKG_VERSION");
 }
 
 pub mod values {

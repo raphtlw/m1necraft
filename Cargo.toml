@@ -37,6 +37,7 @@ clap = { version = "3.0.1", features = ["derive"] }
 fs_extra = "1.2.0"
 glob = "0.3"
 indicatif = "0.16.2"
+dialoguer = "0.9"
 
 [package.metadata.bundle.bin.gui]
 name = "M1necraft"

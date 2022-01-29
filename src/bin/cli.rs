@@ -1,4 +1,11 @@
-use std::{fs, io::BufReader, os::unix::prelude::PermissionsExt, process, thread, time::Duration};
+use std::{
+    fs,
+    io::BufReader,
+    os::unix::prelude::PermissionsExt,
+    process::{self, Stdio},
+    thread,
+    time::Duration,
+};
 
 use api::{
     mcl::check_minecraft_launcher_paths,
@@ -33,6 +40,49 @@ enum Commands {
         #[clap(short, long, required = true)]
         version: String,
     },
+}
+
+fn check_for_update() -> Result<()> {
+    match process::Command::new("brew")
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .spawn()
+    {
+        Ok(_) => {
+            // User has Homebrew installed and sourced in the current shell
+            log::info!("Checking for updates...");
+            // update tap
+            // re-add the tap just in case user has untapped it
+            process::Command::new("brew")
+                .args(&["tap", "raphtlw/tap"])
+                .output()?;
+            process::Command::new("brew").args(&["update"]).output()?;
+            match process::Command::new("brew")
+                .args(&["outdated", "--formula", "m1necraft"])
+                .output()
+            {
+                Ok(out) => {
+                    if !out.status.success() {
+                        log::info!("Found new version: {}", String::from_utf8(out.stdout)?);
+                        if dialoguer::Confirm::new()
+                            .with_prompt("Would you like to install it?")
+                            .interact()?
+                        {
+                            process::Command::new("brew")
+                                .args(&["upgrade", "m1necraft"])
+                                .output()?;
+                        } else {
+                            return Ok(());
+                        }
+                    }
+                }
+                Err(_) => log::error!("Error running `brew outdated` command."),
+            };
+        }
+        Err(_) => (),
+    }
+
+    Ok(())
 }
 
 #[tokio::main]
@@ -85,6 +135,9 @@ async fn main() {
         .expect("Failed to initialize logger");
 
     let mut paths = api::GlobalPaths::init().expect("Failed to initialize GlobalPaths");
+
+    // Check for updates
+    check_for_update().unwrap();
 
     match &args.command {
         Commands::Install { version } => {
