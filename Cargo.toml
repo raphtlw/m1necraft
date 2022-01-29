@@ -1,7 +1,7 @@
 [package]
 name = "m1necraft"
 description = "Minecraft compiled for Apple Silicon."
-version = "0.1.4"
+version = "0.1.5"
 authors = ["Raphael <raphpb1912@gmail.com>"]
 edition = "2021"
 
