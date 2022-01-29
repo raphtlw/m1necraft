@@ -83,9 +83,10 @@ impl GlobalPaths {
             res_jre: None,
         };
 
+        fs_extra::dir::remove(&paths.app_data_dir)?;
         if !paths.app_data_dir.exists() {
             log::debug!("Data directory does not exist, creating...");
-            fs_extra::dir::create_all(app_data_dir, false).unwrap();
+            fs_extra::dir::create_all(app_data_dir, false)?;
         }
 
         paths.set_optional().unwrap();
