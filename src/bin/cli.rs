@@ -18,7 +18,7 @@ use clap::{Parser, Subcommand};
 use colored::Colorize;
 use fern::colors::{Color, ColoredLevelConfig};
 use fs_extra::{dir, file};
-use indicatif::ProgressBar;
+use indicatif::{ProgressBar, ProgressStyle};
 use serde_json::{json, Value};
 use unzpack::Unzpack;
 
@@ -158,7 +158,23 @@ async fn main() {
                 process::exit(1);
             }
 
-            let bar = ProgressBar::new_spinner().with_message("Working on it...");
+            let bar = ProgressBar::new_spinner();
+            bar.enable_steady_tick(120);
+            bar.set_style(
+                ProgressStyle::default_spinner()
+                    // For more spinners check out the cli-spinners project:
+                    // https://github.com/sindresorhus/cli-spinners/blob/master/spinners.json
+                    .tick_strings(&[
+                        "▹▹▹▹▹",
+                        "▸▹▹▹▹",
+                        "▹▸▹▹▹",
+                        "▹▹▸▹▹",
+                        "▹▹▹▸▹",
+                        "▹▹▹▹▸",
+                        "▪▪▪▪▪",
+                    ])
+                    .template("{spinner:.blue} {msg}"),
+            );
 
             /// Download required artifacts
             async fn download_all_artifacts() -> Result<()> {
