@@ -6,15 +6,25 @@
 //
 
 import SwiftUI
+import AppKit
 
-@main
+@available(OSX 11.0, *)
 struct M1necraftApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
+    @StateObject var m = ContentView.ViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            #if os(macOS)
-            ContentView().frame(minWidth: 600, maxWidth: 600, minHeight: 400, maxHeight: 400)
-            #else
-            ContentView()
+            ContentView(m: m).frame(minWidth: 600, minHeight: 400)
+        }.commands {
+            #if DEBUG
+            CommandMenu("Debug") {
+                Button("Reset Data") {
+                    try! Paths.global.resetDataDir()
+                    m.setupStatus = .settingUp
+                }
+            }
             #endif
         }
     }

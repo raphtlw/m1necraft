@@ -6,51 +6,169 @@
 //
 
 import Foundation
+import AppKit
+import Glob
 
 enum UrlValues {
-    static let mcLibsUrl = "https://github.com/raphtlw/m1necraft/releases/download/resources/mc_libs.zip"
-    static let minecraftClientJar = "https://launcher.mojang.com/v1/objects/1952d94a0784e7abda230aae6a1e8fc0522dba99/client.jar"
-    static let minecraftClientLibraries = [
-        "https://libraries.minecraft.net/com/mojang/patchy/1.1/patchy-1.1.jar",
-        "https://libraries.minecraft.net/oshi-project/oshi-core/1.1/oshi-core-1.1.jar",
-        "https://libraries.minecraft.net/net/java/dev/jna/jna/4.4.0/jna-4.4.0.jar",
-        "https://libraries.minecraft.net/net/java/dev/jna/platform/3.4.0/platform-3.4.0.jar",
-        "https://libraries.minecraft.net/com/ibm/icu/icu4j/66.1/icu4j-66.1.jar",
-        "https://libraries.minecraft.net/com/mojang/javabridge/1.0.22/javabridge-1.0.22.jar",
-        "https://libraries.minecraft.net/net/sf/jopt-simple/jopt-simple/5.0.3/jopt-simple-5.0.3.jar",
-        "https://libraries.minecraft.net/io/netty/netty-all/4.1.25.Final/netty-all-4.1.25.Final.jar",
-        "https://libraries.minecraft.net/com/google/guava/guava/21.0/guava-21.0.jar",
-        "https://libraries.minecraft.net/org/apache/commons/commons-lang3/3.5/commons-lang3-3.5.jar",
-        "https://libraries.minecraft.net/commons-io/commons-io/2.5/commons-io-2.5.jar",
-        "https://libraries.minecraft.net/commons-codec/commons-codec/1.10/commons-codec-1.10.jar",
-        "https://libraries.minecraft.net/com/mojang/brigadier/1.0.17/brigadier-1.0.17.jar",
-        "https://libraries.minecraft.net/com/mojang/datafixerupper/4.0.26/datafixerupper-4.0.26.jar",
-        "https://libraries.minecraft.net/com/google/code/gson/gson/2.8.0/gson-2.8.0.jar",
-        "https://libraries.minecraft.net/com/mojang/authlib/2.0.27/authlib-2.0.27.jar",
-        "https://libraries.minecraft.net/org/apache/commons/commons-compress/1.8.1/commons-compress-1.8.1.jar",
-        "https://libraries.minecraft.net/org/apache/httpcomponents/httpclient/4.3.3/httpclient-4.3.3.jar",
-        "https://libraries.minecraft.net/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar",
-        "https://libraries.minecraft.net/org/apache/httpcomponents/httpcore/4.3.2/httpcore-4.3.2.jar",
-        "https://libraries.minecraft.net/it/unimi/dsi/fastutil/8.2.1/fastutil-8.2.1.jar",
-        "https://libraries.minecraft.net/org/apache/logging/log4j/log4j-api/2.8.1/log4j-api-2.8.1.jar",
-        "https://libraries.minecraft.net/org/apache/logging/log4j/log4j-core/2.8.1/log4j-core-2.8.1.jar",
-        "https://libraries.minecraft.net/com/mojang/text2speech/1.11.3/text2speech-1.11.3.jar",
-        "https://libraries.minecraft.net/com/mojang/text2speech/1.11.3/text2speech-1.11.3.jar",
-        "https://libraries.minecraft.net/com/mojang/text2speech/1.11.3/text2speech-1.11.3-natives-linux.jar",
-        "https://libraries.minecraft.net/com/mojang/text2speech/1.11.3/text2speech-1.11.3-natives-windows.jar",
-        "https://libraries.minecraft.net/com/mojang/text2speech/1.11.3/text2speech-1.11.3-sources.jar",
-        "https://libraries.minecraft.net/ca/weblite/java-objc-bridge/1.0.0/java-objc-bridge-1.0.0.jar",
-        "https://libraries.minecraft.net/ca/weblite/java-objc-bridge/1.0.0/java-objc-bridge-1.0.0-javadoc.jar",
-        "https://libraries.minecraft.net/ca/weblite/java-objc-bridge/1.0.0/java-objc-bridge-1.0.0-natives-osx.jar",
-        "https://libraries.minecraft.net/ca/weblite/java-objc-bridge/1.0.0/java-objc-bridge-1.0.0-sources.jar",
-        "https://libraries.minecraft.net/ca/weblite/java-objc-bridge/1.0.0/java-objc-bridge-1.0.0.jar",
-        "https://launcher.mojang.com/v1/objects/1952d94a0784e7abda230aae6a1e8fc0522dba99/client.jar"
-    ]
+    static let resourceArtifactPrefix = "https://github.com/raphtlw/m1necraft/releases/download/resources/"
+    static let javaRuntime8 = "https://cdn.azul.com/zulu/bin/zulu8.58.0.13-ca-jre8.0.312-macosx_aarch64.zip"
+    static let javaRuntime17 = "https://cdn.azul.com/zulu/bin/zulu17.32.13-ca-jre17.0.2-macosx_aarch64.zip"
 }
 
-enum Paths {
-    static let dataDir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-    static let mcLibsDir = dataDir.appendingPathComponent("mc_libs")
-    static let minecraftLibrariesDir = mcLibsDir.appendingPathComponent("libraries")
-    static let minecraftClientJar = minecraftLibrariesDir.appendingPathComponent("minecraft-1.16.4-client.jar")
+enum Strings {
+    static let launcherProfileKeyPrefix = "m1necraft-"
+    static let minecraftLauncherBundleID = "com.mojang.minecraftlauncher"
+}
+
+class Paths {
+    let dataDir: URL
+    
+    let resLwjgl: URL
+    let resLwjglnatives: URL
+    let resLwjglfatJar: URL
+    let resMclProfiles: URL
+    let resChecksums: URL
+    
+    let mclDir: URL
+    let mclLauncherProfiles: URL
+    let mclVersions: URL
+    let mclLwjglnatives: URL
+    let mclLwjglfatJar: URL
+    let mclRuntime: URL
+    let mclJre: [Int: URL]
+    
+    static func initFail() {
+        let alert = NSAlert()
+        alert.messageText = "Encountered a problem"
+        alert.informativeText = "Failed to initialize paths. Please report this incident."
+        alert.alertStyle = .critical
+        alert.addButton(withTitle: "Quit")
+        if alert.runModal() == .alertFirstButtonReturn {
+            // terminate the app
+            NSApplication.shared.terminate(nil)
+        }
+    }
+
+    init?() {
+        let fileManager = FileManager()
+        
+        // Program cannot function if dataDir is nil
+        guard let _dataDir = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.appendingPathComponent(Bundle.main.bundleIdentifier ?? "") else {
+            Self.initFail()
+            return nil
+        }
+        
+        self.dataDir = _dataDir
+        
+        // Create dataDir
+        if !fileManager.dirExists(atPath: dataDir) {
+            maybe(try fileManager.createDirectory(at: dataDir, withIntermediateDirectories: false))
+        }
+        
+        resMclProfiles = dataDir.appendingPathComponent("mcl_profiles")
+        resLwjgl = dataDir.appendingPathComponent("lwjgl")
+        resLwjglnatives = resLwjgl.appendingPathComponent("lwjglnatives")
+        resLwjglfatJar = resLwjgl.appendingPathComponent("lwjglfat.jar")
+        resChecksums = dataDir.appendingPathComponent("checksums.txt")
+        
+        guard let _mclDir = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.appendingPathComponent("minecraft") else {
+            Self.initFail()
+            return nil
+        }
+        
+        self.mclDir = _mclDir
+        
+        mclLauncherProfiles = mclDir.appendingPathComponent("launcher_profiles.json")
+        mclVersions = mclDir.appendingPathComponent("versions")
+        mclLwjglfatJar = mclDir.appendingPathComponent("libraries").appendingPathComponent("lwjglfat.jar")
+        mclLwjglnatives = mclDir.appendingPathComponent("lwjglnatives")
+        mclRuntime = mclDir.appendingPathComponent("runtime")
+        mclJre = [8: mclRuntime.appendingPathComponent("zulu-8.jre"), 17: mclRuntime.appendingPathComponent("zulu-17.jre")]
+    }
+    
+    var resJre: [Int: URL]! {
+        get {
+            let dirs = Glob(pattern: "\(dataDir.path)/zulu*_aarch64/zulu-*.jre")
+            if dirs.indices.contains(1) {
+                return [8: URL(fileURLWithPath: dirs.first(where: { $0.contains("zulu8") })!, isDirectory: true), 17: URL(fileURLWithPath: dirs.first(where: { $0.contains("zulu17") })!, isDirectory: true)]
+            } else {
+                print("Glob didn't find any path that matched zulu*...!")
+                Self.initFail()
+                return nil // this will never
+            }
+        }
+    }
+
+    static let global: Paths! = Paths()
+}
+
+enum AppError: Error {
+    case pathInitError(String)
+}
+
+// MARK: - Minecraft Versions
+struct M1necraftVersion: Identifiable, Equatable {
+    let name: String
+    private(set) var id = UUID()
+    var installState: MinecraftInstallState = .notInstalled {
+        didSet {
+            id = UUID()
+        }
+    }
+}
+
+#if DEBUG
+let supportedVersions = [
+    M1necraftVersion(name: "1.18.1"),
+    M1necraftVersion(name: "1.18"),
+    M1necraftVersion(name: "1.17.1"),
+    M1necraftVersion(name: "1.17"),
+    M1necraftVersion(name: "1.16.5"),
+    M1necraftVersion(name: "1.16.4"),
+    M1necraftVersion(name: "1.16.3"),
+    M1necraftVersion(name: "1.16.2"),
+    M1necraftVersion(name: "1.16.1"),
+    M1necraftVersion(name: "1.16"),
+    M1necraftVersion(name: "1.14.1"),
+    M1necraftVersion(name: "1.12.2")
+]
+#else
+let supportedVersions = [
+    M1necraftVersion(name: "1.18.1"),
+    M1necraftVersion(name: "1.18"),
+    M1necraftVersion(name: "1.17.1"),
+    M1necraftVersion(name: "1.17"),
+    M1necraftVersion(name: "1.16.5"),
+    M1necraftVersion(name: "1.16.4"),
+    M1necraftVersion(name: "1.16.3"),
+    M1necraftVersion(name: "1.16.2"),
+    M1necraftVersion(name: "1.16.1"),
+    M1necraftVersion(name: "1.16")
+]
+#endif
+
+// MARK: - MinecraftLauncherProfiles JSON type
+struct MinecraftLauncherProfiles: Codable {
+    var profiles: [String: Profile]
+    let settings: Settings
+    let version: Int
+    
+    struct Profile: Codable {
+        let created, icon, lastVersionID: String
+        let name, type: String
+        let javaDir, lastUsed: String?
+
+        enum CodingKeys: String, CodingKey {
+            case created, icon
+            case lastVersionID = "lastVersionId"
+            case name, type, javaDir, lastUsed
+        }
+    }
+
+    struct Settings: Codable {
+        let crashAssistance, enableAdvanced, enableAnalytics, enableHistorical: Bool
+        let enableReleases, enableSnapshots, keepLauncherOpen: Bool
+        let profileSorting: String
+        let showGameLog, showMenu, soundOn: Bool
+    }
 }

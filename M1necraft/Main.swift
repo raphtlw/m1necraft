@@ -6,3 +6,15 @@
 //
 
 import Foundation
+import AppKit
+
+@main
+struct Main {
+    static func main() {
+        if #available(OSX 11.0, *) {
+            M1necraftApp.main()
+        } else {
+            M1necraftAppCompat.main()
+        }
+    }
+}
