@@ -1,0 +1,22 @@
+# on:
+#   push:
+#     tags:
+#       - "v*.*.*"
+
+# jobs:
+#   build:
+#     runs-on: macos-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Build macOS app
+#         uses: sersoft-gmbh/xcodebuild-action@v1
+#         with:
+#           project: M1necraft.xcodeproj
+#           scheme: M1necraft
+#           destination: platform=macOS
+#           action: build
+#       - name: Upload build artifacts
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: build_artifacts
+#           path: 
