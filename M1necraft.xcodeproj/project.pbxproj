@@ -1,0 +1,732 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		64243AB8276D9DED009826F8 /* M1necraftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64243AB7276D9DED009826F8 /* M1necraftApp.swift */; };
+		64243ABA276D9DED009826F8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64243AB9276D9DED009826F8 /* ContentView.swift */; };
+		64243ABC276D9DEE009826F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64243ABB276D9DEE009826F8 /* Assets.xcassets */; };
+		64243ABF276D9DEE009826F8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64243ABE276D9DEE009826F8 /* Preview Assets.xcassets */; };
+		64243ACA276D9DEE009826F8 /* M1necraftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64243AC9276D9DEE009826F8 /* M1necraftTests.swift */; };
+		64243AD4276D9DEE009826F8 /* M1necraftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64243AD3276D9DEE009826F8 /* M1necraftUITests.swift */; };
+		64243AD6276D9DEE009826F8 /* M1necraftUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64243AD5276D9DEE009826F8 /* M1necraftUITestsLaunchTests.swift */; };
+		647D4DC927AE905B00EFC1FE /* AppStoreButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D4DC827AE905B00EFC1FE /* AppStoreButtonStyle.swift */; };
+		647D4DCB27AFC6C900EFC1FE /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D4DCA27AFC6C900EFC1FE /* Main.swift */; };
+		647D4DCD27AFCA2000EFC1FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D4DCC27AFCA2000EFC1FE /* AppDelegate.swift */; };
+		647D4DCF27AFCECC00EFC1FE /* AppCompat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D4DCE27AFCECC00EFC1FE /* AppCompat.swift */; };
+		647D4E0727B0F9A800EFC1FE /* GameVersionListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D4E0627B0F9A800EFC1FE /* GameVersionListView.swift */; };
+		647D4E0927B0F9B600EFC1FE /* GameVersionListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D4E0827B0F9B600EFC1FE /* GameVersionListItem.swift */; };
+		647D4E0B27B10AC400EFC1FE /* ObservingProgressIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D4E0A27B10AC400EFC1FE /* ObservingProgressIndicator.swift */; };
+		647D4E1027B171C500EFC1FE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 647D4E1227B171C500EFC1FE /* Localizable.strings */; };
+		647D4E1427B172C600EFC1FE /* ModInstallHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D4E1327B172C600EFC1FE /* ModInstallHelpView.swift */; };
+		647D4E1627B17CEF00EFC1FE /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D4E1527B17CEF00EFC1FE /* CloseButton.swift */; };
+		647D4E1927B402B400EFC1FE /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = 647D4E1827B402B400EFC1FE /* Files */; };
+		64CA5E9D2770497400C73E3D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 64CA5E9C2770497400C73E3D /* Alamofire */; };
+		64CA5EA42771C96E00C73E3D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CA5EA32771C96E00C73E3D /* Utils.swift */; };
+		64CA5EA72771DC7800C73E3D /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 64CA5EA62771DC7800C73E3D /* ZIPFoundation */; };
+		64D0F30C27A98EA900713A33 /* Glob in Frameworks */ = {isa = PBXBuildFile; productRef = 64D0F30B27A98EA900713A33 /* Glob */; };
+		64D0F31027AAB11500713A33 /* SetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D0F30F27AAB11500713A33 /* SetupView.swift */; };
+		64D0F31227AABB5700713A33 /* InstallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D0F31127AABB5700713A33 /* InstallView.swift */; };
+		64EAA53B276F448E00A032F1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EAA53A276F448E00A032F1 /* LoginView.swift */; };
+		64EAA53D276F518F00A032F1 /* LauncherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EAA53C276F518F00A032F1 /* LauncherView.swift */; };
+		64EAA53F276F546000A032F1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64EAA53E276F546000A032F1 /* Constants.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		64243AC6276D9DEE009826F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64243AAC276D9DED009826F8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 64243AB3276D9DED009826F8;
+			remoteInfo = M1necraft;
+		};
+		64243AD0276D9DEE009826F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64243AAC276D9DED009826F8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 64243AB3276D9DED009826F8;
+			remoteInfo = M1necraft;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		64243AB4276D9DED009826F8 /* M1necraft.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = M1necraft.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		64243AB7276D9DED009826F8 /* M1necraftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M1necraftApp.swift; sourceTree = "<group>"; };
+		64243AB9276D9DED009826F8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		64243ABB276D9DEE009826F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		64243ABE276D9DEE009826F8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		64243AC0276D9DEE009826F8 /* M1necraft.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = M1necraft.entitlements; sourceTree = "<group>"; };
+		64243AC5276D9DEE009826F8 /* M1necraftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = M1necraftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		64243AC9276D9DEE009826F8 /* M1necraftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M1necraftTests.swift; sourceTree = "<group>"; };
+		64243ACF276D9DEE009826F8 /* M1necraftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = M1necraftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		64243AD3276D9DEE009826F8 /* M1necraftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M1necraftUITests.swift; sourceTree = "<group>"; };
+		64243AD5276D9DEE009826F8 /* M1necraftUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M1necraftUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		647D4DC827AE905B00EFC1FE /* AppStoreButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreButtonStyle.swift; sourceTree = "<group>"; };
+		647D4DCA27AFC6C900EFC1FE /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		647D4DCC27AFCA2000EFC1FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		647D4DCE27AFCECC00EFC1FE /* AppCompat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCompat.swift; sourceTree = "<group>"; };
+		647D4E0627B0F9A800EFC1FE /* GameVersionListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVersionListView.swift; sourceTree = "<group>"; };
+		647D4E0827B0F9B600EFC1FE /* GameVersionListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVersionListItem.swift; sourceTree = "<group>"; };
+		647D4E0A27B10AC400EFC1FE /* ObservingProgressIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservingProgressIndicator.swift; sourceTree = "<group>"; };
+		647D4E1127B171C500EFC1FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		647D4E1327B172C600EFC1FE /* ModInstallHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModInstallHelpView.swift; sourceTree = "<group>"; };
+		647D4E1527B17CEF00EFC1FE /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		64CA5EA32771C96E00C73E3D /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		64CA5EA82771EE0900C73E3D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		64D0F30F27AAB11500713A33 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
+		64D0F31127AABB5700713A33 /* InstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallView.swift; sourceTree = "<group>"; };
+		64EAA53A276F448E00A032F1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		64EAA53C276F518F00A032F1 /* LauncherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LauncherView.swift; sourceTree = "<group>"; };
+		64EAA53E276F546000A032F1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		64243AB1276D9DED009826F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				647D4E1927B402B400EFC1FE /* Files in Frameworks */,
+				64D0F30C27A98EA900713A33 /* Glob in Frameworks */,
+				64CA5E9D2770497400C73E3D /* Alamofire in Frameworks */,
+				64CA5EA72771DC7800C73E3D /* ZIPFoundation in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64243AC2276D9DEE009826F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64243ACC276D9DEE009826F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		64243AAB276D9DED009826F8 = {
+			isa = PBXGroup;
+			children = (
+				64243AB6276D9DED009826F8 /* M1necraft */,
+				64243AC8276D9DEE009826F8 /* M1necraftTests */,
+				64243AD2276D9DEE009826F8 /* M1necraftUITests */,
+				64243AB5276D9DED009826F8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		64243AB5276D9DED009826F8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				64243AB4276D9DED009826F8 /* M1necraft.app */,
+				64243AC5276D9DEE009826F8 /* M1necraftTests.xctest */,
+				64243ACF276D9DEE009826F8 /* M1necraftUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		64243AB6276D9DED009826F8 /* M1necraft */ = {
+			isa = PBXGroup;
+			children = (
+				64243AB7276D9DED009826F8 /* M1necraftApp.swift */,
+				64243AB9276D9DED009826F8 /* ContentView.swift */,
+				64D0F30F27AAB11500713A33 /* SetupView.swift */,
+				64EAA53E276F546000A032F1 /* Constants.swift */,
+				64EAA53A276F448E00A032F1 /* LoginView.swift */,
+				64CA5EA32771C96E00C73E3D /* Utils.swift */,
+				647D4E1327B172C600EFC1FE /* ModInstallHelpView.swift */,
+				64243ABB276D9DEE009826F8 /* Assets.xcassets */,
+				64243AC0276D9DEE009826F8 /* M1necraft.entitlements */,
+				64243ABD276D9DEE009826F8 /* Preview Content */,
+				64EAA53C276F518F00A032F1 /* LauncherView.swift */,
+				64CA5EA82771EE0900C73E3D /* README.md */,
+				64D0F31127AABB5700713A33 /* InstallView.swift */,
+				647D4DC827AE905B00EFC1FE /* AppStoreButtonStyle.swift */,
+				647D4DCA27AFC6C900EFC1FE /* Main.swift */,
+				647D4DCC27AFCA2000EFC1FE /* AppDelegate.swift */,
+				647D4DCE27AFCECC00EFC1FE /* AppCompat.swift */,
+				647D4E0627B0F9A800EFC1FE /* GameVersionListView.swift */,
+				647D4E0827B0F9B600EFC1FE /* GameVersionListItem.swift */,
+				647D4E1227B171C500EFC1FE /* Localizable.strings */,
+				647D4E0A27B10AC400EFC1FE /* ObservingProgressIndicator.swift */,
+				647D4E1527B17CEF00EFC1FE /* CloseButton.swift */,
+			);
+			path = M1necraft;
+			sourceTree = "<group>";
+		};
+		64243ABD276D9DEE009826F8 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				64243ABE276D9DEE009826F8 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		64243AC8276D9DEE009826F8 /* M1necraftTests */ = {
+			isa = PBXGroup;
+			children = (
+				64243AC9276D9DEE009826F8 /* M1necraftTests.swift */,
+			);
+			path = M1necraftTests;
+			sourceTree = "<group>";
+		};
+		64243AD2276D9DEE009826F8 /* M1necraftUITests */ = {
+			isa = PBXGroup;
+			children = (
+				64243AD3276D9DEE009826F8 /* M1necraftUITests.swift */,
+				64243AD5276D9DEE009826F8 /* M1necraftUITestsLaunchTests.swift */,
+			);
+			path = M1necraftUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		64243AB3276D9DED009826F8 /* M1necraft */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64243AD9276D9DEE009826F8 /* Build configuration list for PBXNativeTarget "M1necraft" */;
+			buildPhases = (
+				64243AB0276D9DED009826F8 /* Sources */,
+				64243AB1276D9DED009826F8 /* Frameworks */,
+				64243AB2276D9DED009826F8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = M1necraft;
+			packageProductDependencies = (
+				64CA5E9C2770497400C73E3D /* Alamofire */,
+				64CA5EA62771DC7800C73E3D /* ZIPFoundation */,
+				64D0F30B27A98EA900713A33 /* Glob */,
+				647D4E1827B402B400EFC1FE /* Files */,
+			);
+			productName = M1necraft;
+			productReference = 64243AB4276D9DED009826F8 /* M1necraft.app */;
+			productType = "com.apple.product-type.application";
+		};
+		64243AC4276D9DEE009826F8 /* M1necraftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64243ADC276D9DEE009826F8 /* Build configuration list for PBXNativeTarget "M1necraftTests" */;
+			buildPhases = (
+				64243AC1276D9DEE009826F8 /* Sources */,
+				64243AC2276D9DEE009826F8 /* Frameworks */,
+				64243AC3276D9DEE009826F8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				64243AC7276D9DEE009826F8 /* PBXTargetDependency */,
+			);
+			name = M1necraftTests;
+			productName = M1necraftTests;
+			productReference = 64243AC5276D9DEE009826F8 /* M1necraftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		64243ACE276D9DEE009826F8 /* M1necraftUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64243ADF276D9DEE009826F8 /* Build configuration list for PBXNativeTarget "M1necraftUITests" */;
+			buildPhases = (
+				64243ACB276D9DEE009826F8 /* Sources */,
+				64243ACC276D9DEE009826F8 /* Frameworks */,
+				64243ACD276D9DEE009826F8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				64243AD1276D9DEE009826F8 /* PBXTargetDependency */,
+			);
+			name = M1necraftUITests;
+			productName = M1necraftUITests;
+			productReference = 64243ACF276D9DEE009826F8 /* M1necraftUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		64243AAC276D9DED009826F8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					64243AB3276D9DED009826F8 = {
+						CreatedOnToolsVersion = 13.2;
+					};
+					64243AC4276D9DEE009826F8 = {
+						CreatedOnToolsVersion = 13.2;
+						TestTargetID = 64243AB3276D9DED009826F8;
+					};
+					64243ACE276D9DEE009826F8 = {
+						CreatedOnToolsVersion = 13.2;
+						TestTargetID = 64243AB3276D9DED009826F8;
+					};
+				};
+			};
+			buildConfigurationList = 64243AAF276D9DED009826F8 /* Build configuration list for PBXProject "M1necraft" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 64243AAB276D9DED009826F8;
+			packageReferences = (
+				64CA5E9B2770497400C73E3D /* XCRemoteSwiftPackageReference "Alamofire" */,
+				64CA5EA52771DC7800C73E3D /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+				64D0F30A27A98EA900713A33 /* XCRemoteSwiftPackageReference "Glob" */,
+				647D4E1727B402B400EFC1FE /* XCRemoteSwiftPackageReference "Files" */,
+			);
+			productRefGroup = 64243AB5276D9DED009826F8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				64243AB3276D9DED009826F8 /* M1necraft */,
+				64243AC4276D9DEE009826F8 /* M1necraftTests */,
+				64243ACE276D9DEE009826F8 /* M1necraftUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		64243AB2276D9DED009826F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				647D4E1027B171C500EFC1FE /* Localizable.strings in Resources */,
+				64243ABF276D9DEE009826F8 /* Preview Assets.xcassets in Resources */,
+				64243ABC276D9DEE009826F8 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64243AC3276D9DEE009826F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64243ACD276D9DEE009826F8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		64243AB0276D9DED009826F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				647D4E0727B0F9A800EFC1FE /* GameVersionListView.swift in Sources */,
+				647D4DCD27AFCA2000EFC1FE /* AppDelegate.swift in Sources */,
+				647D4DCB27AFC6C900EFC1FE /* Main.swift in Sources */,
+				647D4E0927B0F9B600EFC1FE /* GameVersionListItem.swift in Sources */,
+				64EAA53F276F546000A032F1 /* Constants.swift in Sources */,
+				64EAA53B276F448E00A032F1 /* LoginView.swift in Sources */,
+				647D4E1627B17CEF00EFC1FE /* CloseButton.swift in Sources */,
+				64243ABA276D9DED009826F8 /* ContentView.swift in Sources */,
+				64D0F31027AAB11500713A33 /* SetupView.swift in Sources */,
+				64EAA53D276F518F00A032F1 /* LauncherView.swift in Sources */,
+				647D4DCF27AFCECC00EFC1FE /* AppCompat.swift in Sources */,
+				647D4DC927AE905B00EFC1FE /* AppStoreButtonStyle.swift in Sources */,
+				64243AB8276D9DED009826F8 /* M1necraftApp.swift in Sources */,
+				64D0F31227AABB5700713A33 /* InstallView.swift in Sources */,
+				647D4E0B27B10AC400EFC1FE /* ObservingProgressIndicator.swift in Sources */,
+				647D4E1427B172C600EFC1FE /* ModInstallHelpView.swift in Sources */,
+				64CA5EA42771C96E00C73E3D /* Utils.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64243AC1276D9DEE009826F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64243ACA276D9DEE009826F8 /* M1necraftTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64243ACB276D9DEE009826F8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64243AD6276D9DEE009826F8 /* M1necraftUITestsLaunchTests.swift in Sources */,
+				64243AD4276D9DEE009826F8 /* M1necraftUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		64243AC7276D9DEE009826F8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 64243AB3276D9DED009826F8 /* M1necraft */;
+			targetProxy = 64243AC6276D9DEE009826F8 /* PBXContainerItemProxy */;
+		};
+		64243AD1276D9DEE009826F8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 64243AB3276D9DED009826F8 /* M1necraft */;
+			targetProxy = 64243AD0276D9DEE009826F8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		647D4E1227B171C500EFC1FE /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				647D4E1127B171C500EFC1FE /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		64243AD7276D9DEE009826F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		64243AD8276D9DEE009826F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		64243ADA276D9DEE009826F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = M1necraft/M1necraft.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"M1necraft/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = raphtlw.apps.M1necraft;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		64243ADB276D9DEE009826F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = M1necraft/M1necraft.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"M1necraft/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = raphtlw.apps.M1necraft;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		64243ADD276D9DEE009826F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = raphtlw.apps.M1necraftTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/M1necraft.app/Contents/MacOS/M1necraft";
+			};
+			name = Debug;
+		};
+		64243ADE276D9DEE009826F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = raphtlw.apps.M1necraftTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/M1necraft.app/Contents/MacOS/M1necraft";
+			};
+			name = Release;
+		};
+		64243AE0276D9DEE009826F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = raphtlw.apps.M1necraftUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = M1necraft;
+			};
+			name = Debug;
+		};
+		64243AE1276D9DEE009826F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = raphtlw.apps.M1necraftUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = M1necraft;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		64243AAF276D9DED009826F8 /* Build configuration list for PBXProject "M1necraft" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64243AD7276D9DEE009826F8 /* Debug */,
+				64243AD8276D9DEE009826F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		64243AD9276D9DEE009826F8 /* Build configuration list for PBXNativeTarget "M1necraft" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64243ADA276D9DEE009826F8 /* Debug */,
+				64243ADB276D9DEE009826F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		64243ADC276D9DEE009826F8 /* Build configuration list for PBXNativeTarget "M1necraftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64243ADD276D9DEE009826F8 /* Debug */,
+				64243ADE276D9DEE009826F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		64243ADF276D9DEE009826F8 /* Build configuration list for PBXNativeTarget "M1necraftUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64243AE0276D9DEE009826F8 /* Debug */,
+				64243AE1276D9DEE009826F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		647D4E1727B402B400EFC1FE /* XCRemoteSwiftPackageReference "Files" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JohnSundell/Files.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		64CA5E9B2770497400C73E3D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		64CA5EA52771DC7800C73E3D /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.9;
+			};
+		};
+		64D0F30A27A98EA900713A33 /* XCRemoteSwiftPackageReference "Glob" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Bouke/Glob";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		647D4E1827B402B400EFC1FE /* Files */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 647D4E1727B402B400EFC1FE /* XCRemoteSwiftPackageReference "Files" */;
+			productName = Files;
+		};
+		64CA5E9C2770497400C73E3D /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64CA5E9B2770497400C73E3D /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		64CA5EA62771DC7800C73E3D /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64CA5EA52771DC7800C73E3D /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+		64D0F30B27A98EA900713A33 /* Glob */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64D0F30A27A98EA900713A33 /* XCRemoteSwiftPackageReference "Glob" */;
+			productName = Glob;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 64243AAC276D9DED009826F8 /* Project object */;
+}

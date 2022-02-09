@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire",
+        "state": {
+          "branch": null,
+          "revision": "f82c23a8a7ef8dc1a49a8bfc6a96883e79121864",
+          "version": "5.5.0"
+        }
+      },
+      {
+        "package": "Files",
+        "repositoryURL": "https://github.com/JohnSundell/Files.git",
+        "state": {
+          "branch": null,
+          "revision": "d273b5b7025d386feef79ef6bad7de762e106eaf",
+          "version": "4.2.0"
+        }
+      },
+      {
+        "package": "Glob",
+        "repositoryURL": "https://github.com/Bouke/Glob",
+        "state": {
+          "branch": null,
+          "revision": "deda6e163d2ff2a8d7e138e2c3326dbd71157faf",
+          "version": "1.0.5"
+        }
+      },
+      {
+        "package": "ZIPFoundation",
+        "repositoryURL": "https://github.com/weichsel/ZIPFoundation",
+        "state": {
+          "branch": null,
+          "revision": "7254c74b49cec2cb81520523ba993c671f71b066",
+          "version": "0.9.14"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
