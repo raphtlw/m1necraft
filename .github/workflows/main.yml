@@ -40,14 +40,10 @@ jobs:
           generate_release_notes: true
   bump-homebrew-formula:
     runs-on: macos-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        formula: ["m1necraft"]
     steps:
       - name: Homebrew bump formula
         uses: dawidd6/action-homebrew-bump-formula@v3
         with:
           token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           tap: raphtlw/homebrew-tap
-          formula: ${{ matrix.formula }}
+          formula: m1necraft
