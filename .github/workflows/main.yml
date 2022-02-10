@@ -23,7 +23,9 @@ jobs:
       - name: (debug) show filetree
         run: brew install tree && tree -a && tree -a ~/Library/Developer/Xcode/DerivedData
       - name: Compress app bundle
-        run: zip -r -y ${{ github.workspace }}/M1necraft.app.zip ~/Library/Developer/Xcode/DerivedData/M1necraft-*/Build/Products/Release/M1necraft.app
+        run: |
+          mv ~/Library/Developer/Xcode/DerivedData/M1necraft-*/Build/Products/Release/M1necraft.app .
+          zip -r -y M1necraft.app.zip M1necraft.app
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
         with:
