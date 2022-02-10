@@ -22,11 +22,13 @@ jobs:
           configuration: Release
       - name: (debug) show filetree
         run: brew install tree && tree -a && tree -a ~/Library/Developer/Xcode/DerivedData
+      - name: Compress app bundle
+        run: zip -r -y ${{ github.workspace }}/M1necraft.app.zip ~/Library/Developer/Xcode/DerivedData/M1necraft-*/Build/Products/Release/M1necraft.app
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
         with:
           name: build_artifacts
-          path: ~/Library/Developer/Xcode/DerivedData/M1necraft-*/Build/Products/Release/M1necraft.app
+          path: ${{ github.workspace }}/M1necraft.app.zip
   release:
     needs: build
     runs-on: macos-latest
@@ -38,7 +40,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: ${{ github.workspace }}/M1necraft.app
+          files: ${{ github.workspace }}/M1necraft.app.zip
           generate_release_notes: true
   bump-homebrew-formula:
     runs-on: macos-latest
