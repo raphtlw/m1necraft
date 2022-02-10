@@ -28,6 +28,7 @@ jobs:
           name: build_artifacts
           path: ~/Library/Developer/Xcode/DerivedData/M1necraft-*/Build/Products/Release/M1necraft.app
   release:
+    needs: build
     runs-on: macos-latest
     steps:
       - uses: actions/download-artifact@v2
