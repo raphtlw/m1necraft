@@ -1,22 +1,53 @@
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
 # on:
 #   push:
-#     tags:
-#       - "v*.*.*"
+#     branches: [main]
 
-# jobs:
-#   build:
-#     runs-on: macos-latest
-#     steps:
-#       - uses: actions/checkout@v2
-#       - name: Build macOS app
-#         uses: sersoft-gmbh/xcodebuild-action@v1
-#         with:
-#           project: M1necraft.xcodeproj
-#           scheme: M1necraft
-#           destination: platform=macOS
-#           action: build
-#       - name: Upload build artifacts
-#         uses: actions/upload-artifact@v2
-#         with:
-#           name: build_artifacts
-#           path: 
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build macOS app
+        uses: sersoft-gmbh/xcodebuild-action@v1
+        with:
+          project: M1necraft.xcodeproj
+          scheme: M1necraft
+          destination: platform=macOS
+          action: build
+          configuration: Release
+      - name: (debug) show filetree
+        run: brew install tree && tree -a && tree -a ~/Library/Developer/Xcode/DerivedData
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: build_artifacts
+          path: ~/Library/Developer/Xcode/DerivedData/M1necraft-*/Build/Products/Release/M1necraft.app
+  release:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: build_artifacts
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ github.workspace }}/M1necraft.app
+          generate_release_notes: true
+  bump-homebrew-formula:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        formula: ["m1necraft"]
+    steps:
+      - name: Homebrew bump formula
+        uses: dawidd6/action-homebrew-bump-formula@v3
+        with:
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+          tap: raphtlw/homebrew-tap
+          formula: ${{ matrix.formula }}
