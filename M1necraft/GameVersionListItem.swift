@@ -38,20 +38,14 @@ struct GameVersionListItem: View {
             
             switch version.installState {
             case .installed:
-                Menu {
+                actionMenuCompat {
                     Button("Install Fabric", action: {
                         m.activeSheet = .modInstallHelp
                     })
                     Button("Install Forge", action: {
                         m.activeSheet = .modInstallHelp
                     })
-                } label: {
-                    Image(systemName: "ellipsis.circle")
                 }
-                .menuStyle(.borderlessButton)
-                .menuIndicator(.hidden)
-                .fixedSize()
-                .padding(.trailing, 5)
                 Button("OPEN", action: {
                     preventTerminate {
                         guard let appUrl = NSWorkspace.shared.urlForApplication(withBundleIdentifier: Strings.minecraftLauncherBundleID) else { return }
@@ -74,8 +68,7 @@ struct GameVersionListItem: View {
         }
     }
     
-    @ViewBuilder
-    func installationStepView(for installationStep: InstallationStep) -> some View {
+    @ViewBuilder func installationStepView(for installationStep: InstallationStep) -> some View {
         HStack {
             switch installationStep {
             case .starting, .copying, .addingProfile, .finishing:
@@ -91,6 +84,29 @@ struct GameVersionListItem: View {
             .buttonStyle(PlainButtonStyle())
             .foregroundColor(selected ? .white : .secondary)
             .help("Stop installation")
+        }
+    }
+    
+    @ViewBuilder func actionMenuCompat<Content: View>(@ViewBuilder innerView: @escaping () -> Content) -> some View {
+        if #available(macOS 12, *) {
+            Menu {
+                innerView()
+            } label: {
+                Image(systemName: "ellipsis.circle")
+            }
+            .menuStyle(.borderlessButton)
+            .menuIndicator(.hidden)
+            .fixedSize()
+            .padding(.trailing, 5)
+        } else {
+            Menu {
+                innerView()
+            } label: {
+                Image(systemName: "ellipsis.circle")
+            }
+            .menuStyle(.borderlessButton)
+            .fixedSize()
+            .padding(.trailing, 5)
         }
     }
 }

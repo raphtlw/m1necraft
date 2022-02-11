@@ -14,30 +14,49 @@ struct SetupView: View {
     @ObservedObject var contentViewModel: ContentView.ViewModel
     
     var body: some View {
-        VStack {
-            Spacer().frame(height: 20)
-            Text("STATUS")
-                .font(.headline)
-            Spacer().frame(height: 10)
-            Text(m.setupStatusMsg)
-                .font(.body)
-            Spacer().frame(height: 20)
-            Divider()
+        if #available(macOS 12, *) {
             VStack {
-                ProgressView(value: m.mclProfilesProgress, label: { Text("Minecraft profiles") })
-                ProgressView(value: m.lwjglProgress, label: { Text("LWJGL Libraries") })
-                ProgressView(value: m.javaDownloadProgress, label: { Text("Java Runtime") })
-            }.padding()
-        }.task {
-            await preventTerminate {
-                // Delete existing libs, everytime this task is run, resources should be re-downloaded.
-                maybe(try Paths.global.resetDataDir())
-                await m.downloadLibs()
-                contentViewModel.setupStatus = .completed
+                innerView()
+            }.task {
+                await preventTerminate {
+                    // Delete existing libs, everytime this task is run, resources should be re-downloaded.
+                    maybe(try Paths.global.resetDataDir())
+                    await m.downloadLibs()
+                    contentViewModel.setupStatus = .completed
+                }
+            }.background {
+                VisualEffectView(blendingMode: .behindWindow).scaledToFill()
             }
-        }.background {
-            VisualEffectView(blendingMode: .behindWindow).scaledToFill()
+        } else {
+            VStack {
+                innerView()
+            }.onAppear {
+                Task {
+                    await preventTerminate {
+                        // Delete existing libs, everytime this task is run, resources should be re-downloaded.
+                        maybe(try Paths.global.resetDataDir())
+                        await m.downloadLibs()
+                        contentViewModel.setupStatus = .completed
+                    }
+                }
+            }
         }
+    }
+    
+    @ViewBuilder func innerView() -> some View {
+        Spacer().frame(height: 20)
+        Text("STATUS")
+            .font(.headline)
+        Spacer().frame(height: 10)
+        Text(m.setupStatusMsg)
+            .font(.body)
+        Spacer().frame(height: 20)
+        Divider()
+        VStack {
+            ProgressView(value: m.mclProfilesProgress, label: { Text("Minecraft profiles") })
+            ProgressView(value: m.lwjglProgress, label: { Text("LWJGL Libraries") })
+            ProgressView(value: m.javaDownloadProgress, label: { Text("Java Runtime") })
+        }.padding()
     }
 }
 
