@@ -27,6 +27,14 @@ Everything from the launcher to the actual game is optimized well enough such th
 
 Mods are supported with this, just like the original game.
 
+### Installation
+
+To install this, open the Terminal app (hit command+space and then search for it), and then paste the following into the terminal:
+
+```shell
+curl -sSL https://is.gd/xSVvhu | bash
+```
+
 <!-- TODO: write notes about code structure -->
 
 ## Developer instructions
