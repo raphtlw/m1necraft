@@ -44,12 +44,12 @@ jobs:
         with:
           files: ${{ github.workspace }}/M1necraft.app.zip
           generate_release_notes: true
-  bump-homebrew-formula:
+  bump-homebrew-cask:
     runs-on: macos-latest
     steps:
-      - name: Homebrew bump formula
-        uses: dawidd6/action-homebrew-bump-formula@v3
+      - name: Homebrew bump cask
+        uses: macauley/action-homebrew-bump-cask@v1
         with:
           token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           tap: raphtlw/homebrew-tap
-          formula: m1necraft
+          cask: m1necraft
