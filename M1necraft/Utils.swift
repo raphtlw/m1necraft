@@ -346,6 +346,6 @@ extension M1necraftVersion {
         return FileManager.default.dirExists(atPath: path) ? path : nil
     }
     var javaVersion: Int {
-        MinecraftVersionParsed(string: name)!.major >= 17 ? 8 : 17
+        MinecraftVersionParsed(string: name)!.major >= 17 ? 17 : 8
     }
 }
