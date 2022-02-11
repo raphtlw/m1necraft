@@ -31,6 +31,7 @@ jobs:
         with:
           name: build_artifacts
           path: ${{ github.workspace }}/M1necraft.app.zip
+          retention-days: 1
   release:
     needs: build
     runs-on: macos-latest
