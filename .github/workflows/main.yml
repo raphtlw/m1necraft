@@ -48,9 +48,11 @@ jobs:
   bump-homebrew-cask:
     runs-on: macos-latest
     steps:
-      - name: Homebrew bump cask
-        uses: macauley/action-homebrew-bump-cask@v1
-        with:
-          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
-          tap: raphtlw/homebrew-tap
-          cask: m1necraft
+      - name: Bump Homebrew cask
+        run: |
+          echo "$BUMP_VERSION"
+          brew tap raphtlw/tap
+          brew bump-cask-pr raphtlw/tap/m1necraft --version="$BUMP_VERSION"
+        env:
+          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+          BUMP_VERSION: ${{ github.ref_name }}
