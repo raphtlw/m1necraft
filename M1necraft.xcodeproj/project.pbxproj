@@ -25,6 +25,7 @@
 		647D4E1427B172C600EFC1FE /* ModInstallHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D4E1327B172C600EFC1FE /* ModInstallHelpView.swift */; };
 		647D4E1627B17CEF00EFC1FE /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D4E1527B17CEF00EFC1FE /* CloseButton.swift */; };
 		647D4E1927B402B400EFC1FE /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = 647D4E1827B402B400EFC1FE /* Files */; };
+		64AEBD5927B8EB1500CD1513 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AEBD5827B8EB1500CD1513 /* SettingsView.swift */; };
 		64CA5E9D2770497400C73E3D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 64CA5E9C2770497400C73E3D /* Alamofire */; };
 		64CA5EA42771C96E00C73E3D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CA5EA32771C96E00C73E3D /* Utils.swift */; };
 		64CA5EA72771DC7800C73E3D /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 64CA5EA62771DC7800C73E3D /* ZIPFoundation */; };
@@ -75,6 +76,7 @@
 		647D4E1127B171C500EFC1FE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		647D4E1327B172C600EFC1FE /* ModInstallHelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModInstallHelpView.swift; sourceTree = "<group>"; };
 		647D4E1527B17CEF00EFC1FE /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		64AEBD5827B8EB1500CD1513 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		64CA5EA32771C96E00C73E3D /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		64CA5EA82771EE0900C73E3D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		64D0F30F27AAB11500713A33 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 			children = (
 				64243AB7276D9DED009826F8 /* M1necraftApp.swift */,
 				64243AB9276D9DED009826F8 /* ContentView.swift */,
+				64AEBD5827B8EB1500CD1513 /* SettingsView.swift */,
 				64D0F30F27AAB11500713A33 /* SetupView.swift */,
 				64EAA53E276F546000A032F1 /* Constants.swift */,
 				64EAA53A276F448E00A032F1 /* LoginView.swift */,
@@ -333,6 +336,7 @@
 				647D4E0727B0F9A800EFC1FE /* GameVersionListView.swift in Sources */,
 				647D4DCD27AFCA2000EFC1FE /* AppDelegate.swift in Sources */,
 				647D4DCB27AFC6C900EFC1FE /* Main.swift in Sources */,
+				64AEBD5927B8EB1500CD1513 /* SettingsView.swift in Sources */,
 				647D4E0927B0F9B600EFC1FE /* GameVersionListItem.swift in Sources */,
 				64EAA53F276F546000A032F1 /* Constants.swift in Sources */,
 				64EAA53B276F448E00A032F1 /* LoginView.swift in Sources */,

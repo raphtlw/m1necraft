@@ -9,14 +9,14 @@ import SwiftUI
 import Files
 
 struct InstallView: View {
+    @ObservedObject var contentViewModel: ContentView.ViewModel
     @StateObject var m = ViewModel()
     let versionRefreshTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     
     var body: some View {
         VStack {
-            GameVersionListView(m: m)
+            GameVersionListView(contentViewModel: contentViewModel, m: m)
         }
-        .sheet(item: $m.activeSheet) { $0.modalView(viewModel: m) }
         .onReceive(versionRefreshTimer, perform: { _ in
             // TODO: listen to filesystem changes in mclDir instead of refreshing every x secs
             m.refreshVersions()
@@ -28,7 +28,6 @@ extension InstallView {
     @MainActor class ViewModel: ObservableObject {
         @Published var versions = supportedVersions
         @Published var selectedMinecraftVersionID: UUID?
-        @Published var activeSheet: Sheet?
         
         let jsonEncoder = JSONEncoder()
         let fileManager = FileManager()
@@ -105,6 +104,6 @@ extension InstallView {
 
 struct InstallView_Previews: PreviewProvider {
     static var previews: some View {
-        InstallView()
+        InstallView(contentViewModel: ContentView.ViewModel())
     }
 }

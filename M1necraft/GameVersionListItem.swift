@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct GameVersionListItem: View {
+    @ObservedObject var contentViewModel: ContentView.ViewModel
     @ObservedObject var m: InstallView.ViewModel
     @State var version: M1necraftVersion
     @State var showModInstallHelpModal = false
@@ -40,10 +41,10 @@ struct GameVersionListItem: View {
             case .installed:
                 actionMenuCompat {
                     Button("Install Fabric", action: {
-                        m.activeSheet = .modInstallHelp
+                        contentViewModel.activeSheet = .modInstallHelp
                     })
                     Button("Install Forge", action: {
-                        m.activeSheet = .modInstallHelp
+                        contentViewModel.activeSheet = .modInstallHelp
                     })
                 }
                 Button("OPEN", action: {
@@ -113,6 +114,6 @@ struct GameVersionListItem: View {
 
 struct GameVersionListItem_Previews: PreviewProvider {
     static var previews: some View {
-        GameVersionListItem(m: InstallView.ViewModel(), version: M1necraftVersion(name: "1.16.5"), selected: false)
+        GameVersionListItem(contentViewModel: ContentView.ViewModel(), m: InstallView.ViewModel(), version: M1necraftVersion(name: "1.16.5"), selected: false)
     }
 }

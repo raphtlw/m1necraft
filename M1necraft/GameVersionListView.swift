@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct GameVersionListView: View {
+    @ObservedObject var contentViewModel: ContentView.ViewModel
     @ObservedObject var m: InstallView.ViewModel
     
     var body: some View {
         List(m.versions, selection: $m.selectedMinecraftVersionID) {
-            GameVersionListItem(m: m, version: $0, selected: m.selectedMinecraftVersionID == $0.id)
+            GameVersionListItem(contentViewModel: contentViewModel, m: m, version: $0, selected: m.selectedMinecraftVersionID == $0.id)
         }.onAppear {
             m.refreshVersions() // set all version states
         }
@@ -21,6 +22,6 @@ struct GameVersionListView: View {
 
 struct GameVersionListView_Previews: PreviewProvider {
     static var previews: some View {
-        GameVersionListView(m: InstallView.ViewModel())
+        GameVersionListView(contentViewModel: ContentView.ViewModel(), m: InstallView.ViewModel())
     }
 }

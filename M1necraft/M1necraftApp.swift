@@ -27,5 +27,8 @@ struct M1necraftApp: App {
             }
             #endif
         }
+        Settings {
+            SettingsView(m: m)
+        }
     }
 }

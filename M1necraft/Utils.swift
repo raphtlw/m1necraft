@@ -77,7 +77,11 @@ extension Paths {
 extension URL {
     var file: File? {
         do {
-            return try File(path: self.path)
+            if FileManager.default.fileExists(atPath: self.path) {
+                return try File(path: self.path)
+            } else {
+                return nil
+            }
         } catch {
             print("Failed to turn URL(\(self.path)) into a File.")
             if self.hasDirectoryPath {
@@ -88,7 +92,11 @@ extension URL {
     }
     var folder: Folder? {
         do {
-            return try Folder(path: self.path)
+            if FileManager.default.dirExists(atPath: self) {
+                return try Folder(path: self.path)
+            } else {
+                return nil
+            }
         } catch {
             print("Failed to turn URL(\(self.path)) into a Folder.")
             if !self.hasDirectoryPath {
@@ -207,28 +215,6 @@ struct VisualEffectView: NSViewRepresentable {
     }
 }
 
-extension View {
-    /**
-     Applies the given transform if the given condition evaluates to `true`.
-     - Parameters:
-         - condition: The condition to evaluate.
-         - transform: The transform to apply to the source `View`.
-     - Returns:
-         Either the original `View` or the modified `View` if the condition is `true`.
-     */
-    @ViewBuilder func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
-        if condition {
-            transform(self)
-        } else {
-            self
-        }
-    }
-    
-    @ViewBuilder func transform<Content: View>(closure: (Self) -> Content) -> some View {
-        closure(self)
-    }
-}
-
 enum Sheet: Identifiable {
     case modInstallHelp
     case settings
@@ -238,10 +224,10 @@ enum Sheet: Identifiable {
     }
     
     @ViewBuilder
-    func modalView(viewModel: InstallView.ViewModel) -> some View {
+    func modalView(viewModel: ContentView.ViewModel) -> some View {
         switch self {
         case .modInstallHelp:  ModInstallHelpView(m: viewModel)
-        case .settings:        Text("SettingsView")
+        case .settings:        SettingsView(m: viewModel, showCloseButton: true)
         }
     }
 }

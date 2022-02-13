@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ModInstallHelpView: View {
-    @StateObject var m: InstallView.ViewModel
+    @StateObject var m: ContentView.ViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -33,6 +33,6 @@ struct ModInstallHelpView: View {
 
 struct ModInstallHelpView_Previews: PreviewProvider {
     static var previews: some View {
-        ModInstallHelpView(m: InstallView.ViewModel())
+        ModInstallHelpView(m: ContentView.ViewModel())
     }
 }

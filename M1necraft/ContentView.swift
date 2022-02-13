@@ -20,7 +20,7 @@ struct ContentView: View {
             case .settingUp:
                 SetupView(contentViewModel: m)
             case .completed:
-                InstallView()
+                InstallView(contentViewModel: m)
             case .failed(let error):
                 VStack {
                     Text(error.localizedDescription)
@@ -33,7 +33,7 @@ struct ContentView: View {
                 Image(systemName: "info.circle")
             }
             Button {
-                print("settings button pressed")
+                m.activeSheet = .settings
             } label: {
                 Image(systemName: "gearshape")
             }
@@ -43,6 +43,8 @@ struct ContentView: View {
             } else {
                 m.setupStatus = .settingUp
             }
+        }.sheet(item: $m.activeSheet) {
+            $0.modalView(viewModel: m)
         }
     }
 }
@@ -50,6 +52,7 @@ struct ContentView: View {
 extension ContentView {
     @MainActor class ViewModel: ObservableObject {
         @Published var setupStatus: SetupStatus = .loading
+        @Published var activeSheet: Sheet?
     }
 }
 
