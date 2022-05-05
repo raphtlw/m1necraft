@@ -32,7 +32,7 @@ Mods are supported with this, just like the original game.
 To install this, open the Terminal app (hit command+space and then search for it), and then paste the following into the terminal:
 
 ```shell
-curl -sSL https://is.gd/xSVvhu | bash
+curl -sSL https://raw.githubusercontent.com/raphtlw/m1necraft/main/installer/install.sh | bash
 ```
 
 <!-- TODO: write notes about code structure -->

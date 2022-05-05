@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import OctoKit
 
 struct ContentView: View {
     @ObservedObject var m: ContentView.ViewModel
+    @StateObject var resources = ResourcesViewModel()
     
     var body: some View {
         Group {
@@ -18,13 +20,18 @@ struct ContentView: View {
                     Text("Loading...")
                 }
             case .settingUp:
-                SetupView(contentViewModel: m)
+                SetupView(contentViewModel: m, resources: resources)
             case .completed:
                 InstallView(contentViewModel: m)
             case .failed(let error):
                 VStack {
-                    Text(error.localizedDescription)
+                    Text("We've encountered an error during the setup process.")
+                    ErrorView(error).padding()
+                    Button("Retry") {
+                        m.setupStatus = .settingUp
+                    }
                 }
+                .padding(.all, 40)
             }
         }.toolbar {
             Button {
@@ -38,10 +45,18 @@ struct ContentView: View {
                 Image(systemName: "gearshape")
             }
         }.onAppear {
-            if SetupView.ViewModel.checkLibs() {
-                m.setupStatus = .completed
-            } else {
+            if SetupView.ViewModel.needsSetup() {
                 m.setupStatus = .settingUp
+            } else {
+                m.setupStatus = .completed
+                
+                do {
+                    if try await resources.checkForUpdate() {
+                        try await resources.download()
+                    }
+                } catch {
+                    m.setupStatus = .failed(AppError.setupFailure(error))
+                }
             }
         }.sheet(item: $m.activeSheet) {
             $0.modalView(viewModel: m)

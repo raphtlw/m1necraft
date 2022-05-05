@@ -26,7 +26,7 @@ struct GameVersionListItem: View {
                 Text(verbatim: version.name)
                 
                 if case let .installed(path) = version.installState {
-                    Text(verbatim: path.path)
+                    Text(verbatim: path.string)
                         .font(.caption)
                         .foregroundColor(.secondary)
                 } else {
@@ -48,15 +48,16 @@ struct GameVersionListItem: View {
                     })
                 }
                 Button("OPEN", action: {
-                    preventTerminate {
-                        guard let appUrl = NSWorkspace.shared.urlForApplication(withBundleIdentifier: Strings.minecraftLauncherBundleID) else { return }
-                        NSWorkspace.shared.openApplication(at: appUrl, configuration: NSWorkspace.OpenConfiguration(), completionHandler: nil)
+                    Runtime.preventTerminate {
+//                        guard let appUrl = NSWorkspace.shared.urlForApplication(withBundleIdentifier: Strings.minecraftLauncherBundleID) else { return }
+//                        NSWorkspace.shared.openApplication(at: appUrl, configuration: NSWorkspace.OpenConfiguration(), completionHandler: nil)
+                        MinecraftLauncher.run()
                     }
                 })
                 .buttonStyle(AppStoreButtonStyle(primary: true, highlighted: selected))
             case .notInstalled:
                 Button("INSTALL", action: {
-                    preventTerminate {
+                    Runtime.preventTerminate {
                         m.installVersion(version: version, updateState: { installationStep in
                             version.installState = .installing(installationStep)
                         })

@@ -21,8 +21,11 @@ struct M1necraftApp: App {
             #if DEBUG
             CommandMenu("Debug") {
                 Button("Reset Data") {
-                    try! Paths.global.resetDataDir()
+                    try! Paths.dataReset()
                     m.setupStatus = .settingUp
+                }
+                Button("Open Minecraft") {
+                    MinecraftLauncher.run()
                 }
             }
             #endif

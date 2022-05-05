@@ -14,6 +14,10 @@
 		64243ACA276D9DEE009826F8 /* M1necraftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64243AC9276D9DEE009826F8 /* M1necraftTests.swift */; };
 		64243AD4276D9DEE009826F8 /* M1necraftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64243AD3276D9DEE009826F8 /* M1necraftUITests.swift */; };
 		64243AD6276D9DEE009826F8 /* M1necraftUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64243AD5276D9DEE009826F8 /* M1necraftUITestsLaunchTests.swift */; };
+		643F03B7281EF63800C0066B /* Path in Frameworks */ = {isa = PBXBuildFile; productRef = 643F03B6281EF63800C0066B /* Path */; };
+		643F03BC28201CAD00C0066B /* Path.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643F03BB28201CAD00C0066B /* Path.swift */; };
+		643F03C0282034B300C0066B /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643F03BF282034B300C0066B /* ErrorView.swift */; };
+		643F03C92821552800C0066B /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 643F03C82821552800C0066B /* OctoKit */; };
 		647D4DC927AE905B00EFC1FE /* AppStoreButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D4DC827AE905B00EFC1FE /* AppStoreButtonStyle.swift */; };
 		647D4DCB27AFC6C900EFC1FE /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D4DCA27AFC6C900EFC1FE /* Main.swift */; };
 		647D4DCD27AFCA2000EFC1FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D4DCC27AFCA2000EFC1FE /* AppDelegate.swift */; };
@@ -24,7 +28,6 @@
 		647D4E1027B171C500EFC1FE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 647D4E1227B171C500EFC1FE /* Localizable.strings */; };
 		647D4E1427B172C600EFC1FE /* ModInstallHelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D4E1327B172C600EFC1FE /* ModInstallHelpView.swift */; };
 		647D4E1627B17CEF00EFC1FE /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647D4E1527B17CEF00EFC1FE /* CloseButton.swift */; };
-		647D4E1927B402B400EFC1FE /* Files in Frameworks */ = {isa = PBXBuildFile; productRef = 647D4E1827B402B400EFC1FE /* Files */; };
 		64AEBD5927B8EB1500CD1513 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AEBD5827B8EB1500CD1513 /* SettingsView.swift */; };
 		64CA5E9D2770497400C73E3D /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 64CA5E9C2770497400C73E3D /* Alamofire */; };
 		64CA5EA42771C96E00C73E3D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CA5EA32771C96E00C73E3D /* Utils.swift */; };
@@ -66,6 +69,8 @@
 		64243ACF276D9DEE009826F8 /* M1necraftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = M1necraftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		64243AD3276D9DEE009826F8 /* M1necraftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M1necraftUITests.swift; sourceTree = "<group>"; };
 		64243AD5276D9DEE009826F8 /* M1necraftUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M1necraftUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		643F03BB28201CAD00C0066B /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
+		643F03BF282034B300C0066B /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		647D4DC827AE905B00EFC1FE /* AppStoreButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreButtonStyle.swift; sourceTree = "<group>"; };
 		647D4DCA27AFC6C900EFC1FE /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		647D4DCC27AFCA2000EFC1FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,7 +83,6 @@
 		647D4E1527B17CEF00EFC1FE /* CloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		64AEBD5827B8EB1500CD1513 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		64CA5EA32771C96E00C73E3D /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		64CA5EA82771EE0900C73E3D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		64D0F30F27AAB11500713A33 /* SetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupView.swift; sourceTree = "<group>"; };
 		64D0F31127AABB5700713A33 /* InstallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallView.swift; sourceTree = "<group>"; };
 		64EAA53A276F448E00A032F1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -91,8 +95,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				647D4E1927B402B400EFC1FE /* Files in Frameworks */,
+				643F03C92821552800C0066B /* OctoKit in Frameworks */,
 				64D0F30C27A98EA900713A33 /* Glob in Frameworks */,
+				643F03B7281EF63800C0066B /* Path in Frameworks */,
 				64CA5E9D2770497400C73E3D /* Alamofire in Frameworks */,
 				64CA5EA72771DC7800C73E3D /* ZIPFoundation in Frameworks */,
 			);
@@ -138,6 +143,7 @@
 		64243AB6276D9DED009826F8 /* M1necraft */ = {
 			isa = PBXGroup;
 			children = (
+				643F03BA28201C8100C0066B /* Modules */,
 				64243AB7276D9DED009826F8 /* M1necraftApp.swift */,
 				64243AB9276D9DED009826F8 /* ContentView.swift */,
 				64AEBD5827B8EB1500CD1513 /* SettingsView.swift */,
@@ -145,12 +151,12 @@
 				64EAA53E276F546000A032F1 /* Constants.swift */,
 				64EAA53A276F448E00A032F1 /* LoginView.swift */,
 				64CA5EA32771C96E00C73E3D /* Utils.swift */,
+				643F03BF282034B300C0066B /* ErrorView.swift */,
 				647D4E1327B172C600EFC1FE /* ModInstallHelpView.swift */,
 				64243ABB276D9DEE009826F8 /* Assets.xcassets */,
 				64243AC0276D9DEE009826F8 /* M1necraft.entitlements */,
 				64243ABD276D9DEE009826F8 /* Preview Content */,
 				64EAA53C276F518F00A032F1 /* LauncherView.swift */,
-				64CA5EA82771EE0900C73E3D /* README.md */,
 				64D0F31127AABB5700713A33 /* InstallView.swift */,
 				647D4DC827AE905B00EFC1FE /* AppStoreButtonStyle.swift */,
 				647D4DCA27AFC6C900EFC1FE /* Main.swift */,
@@ -190,6 +196,14 @@
 			path = M1necraftUITests;
 			sourceTree = "<group>";
 		};
+		643F03BA28201C8100C0066B /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				643F03BB28201CAD00C0066B /* Path.swift */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -210,7 +224,8 @@
 				64CA5E9C2770497400C73E3D /* Alamofire */,
 				64CA5EA62771DC7800C73E3D /* ZIPFoundation */,
 				64D0F30B27A98EA900713A33 /* Glob */,
-				647D4E1827B402B400EFC1FE /* Files */,
+				643F03B6281EF63800C0066B /* Path */,
+				643F03C82821552800C0066B /* OctoKit */,
 			);
 			productName = M1necraft;
 			productReference = 64243AB4276D9DED009826F8 /* M1necraft.app */;
@@ -260,7 +275,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1330;
 				TargetAttributes = {
 					64243AB3276D9DED009826F8 = {
 						CreatedOnToolsVersion = 13.2;
@@ -288,7 +303,8 @@
 				64CA5E9B2770497400C73E3D /* XCRemoteSwiftPackageReference "Alamofire" */,
 				64CA5EA52771DC7800C73E3D /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				64D0F30A27A98EA900713A33 /* XCRemoteSwiftPackageReference "Glob" */,
-				647D4E1727B402B400EFC1FE /* XCRemoteSwiftPackageReference "Files" */,
+				643F03B5281EF63800C0066B /* XCRemoteSwiftPackageReference "Path" */,
+				643F03C72821552800C0066B /* XCRemoteSwiftPackageReference "octokit" */,
 			);
 			productRefGroup = 64243AB5276D9DED009826F8 /* Products */;
 			projectDirPath = "";
@@ -348,8 +364,10 @@
 				647D4DC927AE905B00EFC1FE /* AppStoreButtonStyle.swift in Sources */,
 				64243AB8276D9DED009826F8 /* M1necraftApp.swift in Sources */,
 				64D0F31227AABB5700713A33 /* InstallView.swift in Sources */,
+				643F03C0282034B300C0066B /* ErrorView.swift in Sources */,
 				647D4E0B27B10AC400EFC1FE /* ObservingProgressIndicator.swift in Sources */,
 				647D4E1427B172C600EFC1FE /* ModInstallHelpView.swift in Sources */,
+				643F03BC28201CAD00C0066B /* Path.swift in Sources */,
 				64CA5EA42771C96E00C73E3D /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -521,6 +539,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = M1necraft/M1necraft.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -547,6 +566,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = M1necraft/M1necraft.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -677,12 +697,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		647D4E1727B402B400EFC1FE /* XCRemoteSwiftPackageReference "Files" */ = {
+		643F03B5281EF63800C0066B /* XCRemoteSwiftPackageReference "Path" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/JohnSundell/Files.git";
+			repositoryURL = "https://github.com/mxcl/Path.swift";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				minimumVersion = 1.0.0;
+			};
+		};
+		643F03C72821552800C0066B /* XCRemoteSwiftPackageReference "octokit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nerdishbynature/octokit.swift";
+			requirement = {
+				branch = main;
+				kind = branch;
 			};
 		};
 		64CA5E9B2770497400C73E3D /* XCRemoteSwiftPackageReference "Alamofire" */ = {
@@ -712,10 +740,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		647D4E1827B402B400EFC1FE /* Files */ = {
+		643F03B6281EF63800C0066B /* Path */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 647D4E1727B402B400EFC1FE /* XCRemoteSwiftPackageReference "Files" */;
-			productName = Files;
+			package = 643F03B5281EF63800C0066B /* XCRemoteSwiftPackageReference "Path" */;
+			productName = Path;
+		};
+		643F03C82821552800C0066B /* OctoKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 643F03C72821552800C0066B /* XCRemoteSwiftPackageReference "octokit" */;
+			productName = OctoKit;
 		};
 		64CA5E9C2770497400C73E3D /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

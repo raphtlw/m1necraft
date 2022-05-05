@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Files
 
 struct InstallView: View {
     @ObservedObject var contentViewModel: ContentView.ViewModel
@@ -26,7 +25,7 @@ struct InstallView: View {
 
 extension InstallView {
     @MainActor class ViewModel: ObservableObject {
-        @Published var versions = supportedVersions
+        @Published var versions = M1necraftVersion.all
         @Published var selectedMinecraftVersionID: UUID?
         
         let jsonEncoder = JSONEncoder()
@@ -51,14 +50,16 @@ extension InstallView {
                 
                 // add files to minecraft
                 do {
-                    updateState(.copying(destination: Paths.global.mclDir.path))
-                    try Paths.global.resLwjglnatives.folder!.copyReplace(to: Paths.global.mclDir.folder!)
-                    updateState(.copying(destination: Paths.global.mclLwjglfatJar.path))
-                    try Paths.global.resLwjglfatJar.file!.copyReplace(to: Paths.global.mclDir.folder!.createSubfolderIfNeeded(withName: "libraries"))
-                    updateState(.copying(destination: Paths.global.mclVersions.path))
-                    try Paths.global.resMclProfiles.appendingPathComponent(profileName).folder!.copyReplace(to: Paths.global.mclVersions.folder!)
-                    updateState(.copying(destination: Paths.global.mclRuntime.path))
-                    try Paths.global.resJre[version.javaVersion]!.folder!.copyReplace(to: Paths.global.mclDir.folder!.createSubfolderIfNeeded(withName: "runtime"))
+                    updateState(.copying)
+                    
+                    if Paths.Minecraft.requiredExists() == false {
+                        try MinecraftLauncher.createLauncherFiles()
+                    }
+                    
+                    ignoreError(try Paths.Resources.lwjglnatives.copy(to: Paths.Minecraft.lwjglnatives))
+                    ignoreError(try Paths.Resources.lwjglfatJar.copy(to: Paths.Minecraft.lwjglfatJar))
+                    ignoreError(try Paths.Resources.mclProfiles.join(profileName).copy(into: Paths.Minecraft.versions))
+                    ignoreError(try Paths.Resources.jre[version.javaVersion]!.copy(into: Paths.Minecraft.runtime, overwrite: true))
                 } catch {
                     print("Copying files to Minecraft failed.")
                     print(error.localizedDescription)
@@ -67,7 +68,7 @@ extension InstallView {
                 // add launcher profile
                 do {
                     updateState(.addingProfile)
-                    let launcherProfilesJson = try String(contentsOf: Paths.global.mclLauncherProfiles)
+                    var launcherProfilesJson = try String(contentsOf: Paths.Minecraft.launcherProfiles.url)
                     var launcherProfiles = try JSONDecoder().decode(MinecraftLauncherProfiles.self, from: launcherProfilesJson.data(using: .utf8)!)
                     
                     // construct new launcher profile
@@ -82,12 +83,12 @@ extension InstallView {
                             lastVersionID: profileName,
                             name: "M1necraft",
                             type: "custom",
-                            javaDir: Paths.global.mclJre[version.javaVersion]!.appendingPathComponent("Contents/Home/bin/java").path,
+                            javaDir: Paths.Minecraft.jre[version.javaVersion]!.join("Contents/Home/bin/java").string,
                             lastUsed: nil)
                         launcherProfiles.profiles[newLauncherProfileKey] = newLauncherProfile
                         jsonEncoder.outputFormatting = .prettyPrinted
-                        let newLauncherProfilesJson = try String(data: jsonEncoder.encode(launcherProfiles), encoding: .utf8)
-                        try newLauncherProfilesJson?.write(to: Paths.global.mclLauncherProfiles, atomically: false, encoding: .utf8)
+                        launcherProfilesJson = try String(data: jsonEncoder.encode(launcherProfiles), encoding: .utf8)!
+                        try launcherProfilesJson.write(to: Paths.Minecraft.launcherProfiles.url, atomically: false, encoding: .utf8)
                     }
                 } catch {
                     print("Adding profile to launcher failed.")

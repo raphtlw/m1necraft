@@ -27,32 +27,23 @@ struct SettingsView: View {
                 .padding(.bottom, 8)
             Form {
                 Button("Reset all data") {
-                    try! Paths.global.resetDataDir()
-                    try! Paths.global.mclLwjglnatives.folder?.delete()
-                    try! Paths.global.mclLwjglfatJar.file?.delete()
-                    try! Paths.global.mclJre.forEach { url in
-                        try url.value.folder?.delete()
-                    }
-                    
-                    // delete all installed versions
-                    try! supportedVersions.forEach { version in
-                        try version.isInstalledAt?.folder?.delete()
-                    }
-                    
-                    let jsonEncoder = JSONEncoder()
-                    let jsonDecoder = JSONDecoder()
-                    
-                    var launcherProfiles = try! jsonDecoder.decode(MinecraftLauncherProfiles.self, from: try! String(contentsOf: Paths.global.mclLauncherProfiles).data(using: .utf8)!)
-                    launcherProfiles.profiles.forEach { profileItem in
-                        if profileItem.key.hasPrefix("m1necraft") {
-                            launcherProfiles.profiles.removeValue(forKey: profileItem.key)
+                    do {
+                        try Util.resetData()
+                        // terminate the app
+                        Runtime.forceTerminate(self)
+                    } catch {
+                        print(error)
+                        
+                        let alert = NSAlert()
+                        alert.messageText = "Resetting data failed"
+                        alert.informativeText = "Something went wrong. Please contact the developer."
+                        alert.alertStyle = .critical
+                        let quitBtn = alert.addButton(withTitle: "Quit")
+                        quitBtn.keyEquivalent = "\r"
+                        if alert.runModal() == .alertFirstButtonReturn {
+                            Runtime.forceTerminate(self)
                         }
                     }
-                    
-                    try! String(data: jsonEncoder.encode(launcherProfiles), encoding: .utf8)?.write(to: Paths.global.mclLauncherProfiles, atomically: false, encoding: .utf8)
-                    
-                    m.setupStatus = .settingUp
-                    m.activeSheet = nil
                 }
             }
         }

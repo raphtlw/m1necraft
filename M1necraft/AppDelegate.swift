@@ -14,7 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         // Make sure all initialization is completed
-        if allowAppToTerminate {
+        if Runtime.allowAppToTerminate {
             return .terminateNow
         } else {
             let alert = NSAlert()
