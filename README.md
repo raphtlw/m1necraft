@@ -50,6 +50,18 @@ In this repository, releases are automatically built and published when a new ta
 After the new tag has been pushed, you'll also need to update the Homebrew formula.
 Increment the version in the tarball URL and push the changes.
 
+### Appcast generation & release hosting
+
+The script located in `scripts/update_appcast` downloads all the releases, feeds them into the generate_appcast script (by Sparkle), and corrects the XML output produced by the script so that it downloads from GitHub Releases. This means I can continue to host the releases in GitHub Actions, with analytics as an added bonus, without the need for an external server or s3 object storage.
+
+To develop for Python in this repo, you can set up a virtual environment.
+
+```shell
+python3 -m venv .venv # create the venv
+source .venv/bin/activate # activate the venv
+pip install -r requirements.txt # install dependencies
+```
+
 ## Attributions
 
 The inspiration for this came from [this gist](https://gist.github.com/tanmayb123/d55b16c493326945385e815453de411a). Credits to [Tanmay Bakshi](https://github.com/tanmayb123) for doing this.

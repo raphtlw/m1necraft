@@ -9,7 +9,8 @@ import SwiftUI
 import OctoKit
 
 struct ContentView: View {
-    @ObservedObject var m: ContentView.ViewModel
+    @EnvironmentObject var m: ContentView.ViewModel
+    @EnvironmentObject var updater: UpdaterViewModel
     @StateObject var resources = ResourcesViewModel()
     
     var body: some View {
@@ -20,9 +21,9 @@ struct ContentView: View {
                     Text("Loading...")
                 }
             case .settingUp:
-                SetupView(contentViewModel: m, resources: resources)
+                SetupView(resources: resources)
             case .completed:
-                InstallView(contentViewModel: m)
+                InstallView()
             case .failed(let error):
                 VStack {
                     Text("We've encountered an error during the setup process.")
@@ -59,7 +60,7 @@ struct ContentView: View {
                 }
             }
         }.sheet(item: $m.activeSheet) {
-            $0.modalView(viewModel: m)
+            $0.modalView()
         }
     }
 }
@@ -73,6 +74,6 @@ extension ContentView {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(m: ContentView.ViewModel())
+        ContentView()
     }
 }

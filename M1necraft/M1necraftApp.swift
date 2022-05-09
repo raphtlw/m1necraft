@@ -13,10 +13,14 @@ struct M1necraftApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     @StateObject var m = ContentView.ViewModel()
+    @StateObject var updater = UpdaterViewModel()
     
     var body: some Scene {
         WindowGroup {
-            ContentView(m: m).frame(minWidth: 600, minHeight: 400)
+            ContentView()
+                .frame(minWidth: 600, minHeight: 400)
+                .environmentObject(m)
+                .environmentObject(updater)
         }.commands {
             #if DEBUG
             CommandMenu("Debug") {
@@ -28,10 +32,13 @@ struct M1necraftApp: App {
                     MinecraftLauncher.run()
                 }
             }
+            CommandGroup(after: .appInfo) {
+                AppUpdaterView(updater: updater)
+            }
             #endif
         }
         Settings {
-            SettingsView(m: m)
+            SettingsView()
         }
     }
 }

@@ -61,12 +61,20 @@ main() {
 
   echo -e "\n${GREEN} * Downloading $APP_NAME.zip${CLEAR}"
 
-  # Download latest version
   if [ -n "$INSTALL_VERSION" ]; then
-    curl -L "https://github.com/raphtlw/m1necraft/releases/download/$INSTALL_VERSION/$APP_NAME.zip" --output "$APP_NAME.zip"
+    # Download specific version
+    curl -L "https://github.com/raphtlw/m1necraft/releases/download/v$INSTALL_VERSION/$APP_NAME.zip" --output "$APP_NAME.zip"
   else
+    # Download latest version
     curl -L "https://github.com/raphtlw/m1necraft/releases/latest/download/$APP_NAME.zip" --output "$APP_NAME.zip"
   fi
+
+  # Check if not found
+  (zip -T "$APP_NAME.zip" >/dev/null 2>&1) || {
+    echo -e "\n${RED}  ERROR: Version not found${CLEAR}"
+    cleanup
+    exit 1
+  }
 
   echo -e "${GREEN} * Extracting $APP_NAME.zip${CLEAR}"
   unzip $APP_NAME.zip >/dev/null

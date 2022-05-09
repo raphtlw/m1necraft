@@ -221,10 +221,10 @@ enum Sheet: Identifiable {
     }
     
     @ViewBuilder
-    func modalView(viewModel: ContentView.ViewModel) -> some View {
+    func modalView() -> some View {
         switch self {
-        case .modInstallHelp:  ModInstallHelpView(m: viewModel)
-        case .settings:        SettingsView(m: viewModel, showCloseButton: true)
+        case .modInstallHelp:  ModInstallHelpView()
+        case .settings:        SettingsView(showCloseButton: true)
         }
     }
 }

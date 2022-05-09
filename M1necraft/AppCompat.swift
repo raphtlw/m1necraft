@@ -27,8 +27,13 @@ struct M1necraftAppCompat {
 class AppDelegateCompat: AppDelegate {
     var window: NSWindow!
     
+    @StateObject var m = ContentView.ViewModel()
+    @StateObject var updater = UpdaterViewModel()
+    
     @MainActor func application(_ application: NSApplication) {
-        let contentView = ContentView(m: ContentView.ViewModel())
+        let contentView = ContentView()
+            .environmentObject(m)
+            .environmentObject(updater)
         
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),

@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @ObservedObject var m: ContentView.ViewModel
+    @EnvironmentObject var m: ContentView.ViewModel
+    @EnvironmentObject var updater: UpdaterViewModel
+    
     var showCloseButton = false
     
     var body: some View {
@@ -54,6 +56,6 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(m: ContentView.ViewModel())
+        SettingsView()
     }
 }

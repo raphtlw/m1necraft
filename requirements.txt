@@ -1,0 +1,2 @@
+PyGithub==1.55
+wget==3.2

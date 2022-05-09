@@ -11,8 +11,9 @@ import ZIPFoundation
 import Path
 
 struct SetupView: View {
+    @EnvironmentObject var contentViewModel: ContentView.ViewModel
+    
     @StateObject var m = ViewModel()
-    @ObservedObject var contentViewModel: ContentView.ViewModel
     @ObservedObject var resources: ResourcesViewModel
     
     var body: some View {
@@ -134,6 +135,6 @@ extension SetupView {
 
 struct SetupView_Previews: PreviewProvider {
     static var previews: some View {
-        SetupView(contentViewModel: ContentView.ViewModel(), resources: ResourcesViewModel())
+        SetupView(resources: ResourcesViewModel())
     }
 }

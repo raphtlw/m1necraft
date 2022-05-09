@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InstallView: View {
-    @ObservedObject var contentViewModel: ContentView.ViewModel
+    @EnvironmentObject var contentViewModel: ContentView.ViewModel
     @StateObject var m = ViewModel()
     let versionRefreshTimer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
     
@@ -105,6 +105,6 @@ extension InstallView {
 
 struct InstallView_Previews: PreviewProvider {
     static var previews: some View {
-        InstallView(contentViewModel: ContentView.ViewModel())
+        InstallView()
     }
 }
