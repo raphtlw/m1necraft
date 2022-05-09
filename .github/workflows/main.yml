@@ -31,7 +31,7 @@ jobs:
           zip -r -y M1necraft.app.zip M1necraft.app
       - name: Copy Sparkle distribution archive
         run: |
-          cp ~/Library/Developer/Xcode/DerivedData/M1necraft-*/SourcePackages/artifacts/sparkle .
+          cp -r ~/Library/Developer/Xcode/DerivedData/M1necraft-*/SourcePackages/artifacts/sparkle .
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -94,7 +94,7 @@ jobs:
         run: |
           BUMP_VERSION="${GITHUB_REF_NAME//v}"
           brew tap raphtlw/tap
-          brew bump-cask-pr raphtlw/tap/m1necraft --version="$BUMP_VERSION"
+          brew bump-cask-pr raphtlw/tap/m1necraft --version="$BUMP_VERSION" || true
         env:
           HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           GITHUB_REF_NAME: ${{ github.ref_name }}
