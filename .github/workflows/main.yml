@@ -39,6 +39,7 @@ jobs:
           path: ${{ github.workspace }}/M1necraft.app.zip
           retention-days: 1
       - name: Upload Sparkle tools
+        uses: actions/upload-artifact@v2
         with:
           name: sparkle_updater
           path: ${{ github.workspace }}/sparkle
@@ -63,7 +64,7 @@ jobs:
       APPCAST_WORKDIR: ${{ github.workspace }}/appcast
     steps:
       - uses: actions/checkout@v3
-      - name: Create $APPCAST_WORKDIR directory
+      - name: Create ${{ env.APPCAST_WORKDIR }} directory
         run: mkdir $APPCAST_WORKDIR
       - uses: actions/download-artifact@v2
         with:
