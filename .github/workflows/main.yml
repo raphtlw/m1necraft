@@ -86,7 +86,7 @@ jobs:
           
           # echo -n "$SPARKLE_PRIVATE_KEY" | ./bin/generate_keys -f /dev/stdin
           
-          security import <(cat <<< "$SPARKLE_PRIVATE_KEY") -P "$SPARKLE_PRIVATE_KEY_PASSWORD" -A -t priv -f raw -k "$KEYCHAIN_PATH"
+          security import <(cat <<< "$SPARKLE_PRIVATE_KEY") -P "$SPARKLE_PRIVATE_KEY_PASSWORD" -A -t priv -k "$KEYCHAIN_PATH"
       - name: Generate Appcast
         working-directory: ${{ env.APPCAST_WORKDIR }}
         env:
