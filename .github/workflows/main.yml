@@ -82,7 +82,9 @@ jobs:
           security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
           
-          echo -n "$SPARKLE_PRIVATE_KEY" | ./bin/generate_keys -f /dev/stdin
+          # echo -n "$SPARKLE_PRIVATE_KEY" | ./bin/generate_keys -f /dev/stdin
+          
+          echo -n "$SPARKLE_PRIVATE_KEY" | security import /dev/stdin -A -k "$KEYCHAIN_PATH"
       - name: Generate Appcast
         working-directory: ${{ env.APPCAST_WORKDIR }}
         env:
