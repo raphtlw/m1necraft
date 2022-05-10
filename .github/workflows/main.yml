@@ -71,26 +71,11 @@ jobs:
         with:
           name: sparkle_updater
           path: ${{ env.APPCAST_WORKDIR }}/bin
-      - name: Import Sparkle keys
-        working-directory: ${{ env.APPCAST_WORKDIR }}
-        env:
-          SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
-          SPARKLE_PRIVATE_KEY_PASSWORD: ${{ secrets.SPARKLE_PRIVATE_KEY_PASSWORD }}
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-          KEYCHAIN_PATH: ${{ runner.temp }}/sparkle.keychain-db
-        run: |
-          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
-          security default-keychain -s "$KEYCHAIN_PATH"
-          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
-          
-          # echo -n "$SPARKLE_PRIVATE_KEY" | ./bin/generate_keys -f /dev/stdin
-          
-          security import <(cat <<< "$SPARKLE_PRIVATE_KEY") -P "$SPARKLE_PRIVATE_KEY_PASSWORD" -A -t priv -f pkcs12 -k "$KEYCHAIN_PATH"
       - name: Generate Appcast
         working-directory: ${{ env.APPCAST_WORKDIR }}
         env:
           GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+          SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
         run: |
           pip install -r requirements.txt
           ${{ github.workspace }}/scripts/update_appcast
