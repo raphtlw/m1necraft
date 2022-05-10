@@ -71,14 +71,16 @@ jobs:
         with:
           name: sparkle_updater
           path: ${{ env.APPCAST_WORKDIR }}/bin
+      - name: Install Python 3
+        run: brew install python@3.9
       - name: Generate Appcast
         working-directory: ${{ env.APPCAST_WORKDIR }}
         env:
           GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
         run: |
-          pip install -r requirements.txt
-          ${{ github.workspace }}/scripts/update_appcast
+          pip3 install -r ${{ github.workspace }}/requirements.txt
+          python3 ${{ github.workspace }}/scripts/update_appcast
       - name: Publish Appcast
         uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
