@@ -74,7 +74,14 @@ jobs:
         working-directory: ${{ env.APPCAST_WORKDIR }}
         env:
           SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
-        run: echo "$SPARKLE_PRIVATE_KEY" | ./bin/generate_keys -f /dev/stdin
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          KEYCHAIN_PATH: ${{ runner.temp }}/sparkle.keychain-db
+        run: |
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          
+          echo "$SPARKLE_PRIVATE_KEY" | ./bin/generate_keys -f /dev/stdin
       - name: Generate Appcast
         working-directory: ${{ env.APPCAST_WORKDIR }}
         env:
