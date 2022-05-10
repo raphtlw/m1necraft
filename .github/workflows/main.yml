@@ -42,7 +42,8 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: sparkle_updater
-          path: ${{ github.workspace }}/sparkle
+          path: |
+            ${{ github.workspace }}/sparkle/bin
           retention-days: 1
   release:
     needs: build
@@ -69,7 +70,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: sparkle_updater
-          path: ${{ env.APPCAST_WORKDIR }}
+          path: ${{ env.APPCAST_WORKDIR }}/bin
       - name: Import Sparkle keys
         working-directory: ${{ env.APPCAST_WORKDIR }}
         env:
