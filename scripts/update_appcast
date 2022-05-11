@@ -37,6 +37,10 @@ RELEASE_DOWNLOAD_URL_PREFIX = "https://github.com/raphtlw/m1necraft/releases/dow
 PRIVATE_KEY = environ.get("SPARKLE_PRIVATE_KEY", "")
 
 
+def quoted(string: str) -> str:
+    return '"' + string + '"'
+
+
 def main():
     # Generate archives folder
     github_token = environ.get("GITHUB_TOKEN")
@@ -65,10 +69,10 @@ def main():
         " ".join(
             [
                 path.join(SPARKLE_TOOLS_PATH, "bin", "generate_appcast"),
-                ARCHIVE_PATH,
+                quoted(ARCHIVE_PATH),
                 "-o",
-                APPCAST_PATH,
-                *(["-s", PRIVATE_KEY] if PRODUCTION else []),
+                quoted(APPCAST_PATH),
+                *(["-s", quoted(PRIVATE_KEY)] if PRODUCTION else []),
             ]
         )
     )
