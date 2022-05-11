@@ -72,7 +72,9 @@ jobs:
           name: sparkle_updater
           path: ${{ env.APPCAST_WORKDIR }}/bin
       - name: Install Python 3
-        run: brew install python@3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.9.x'
       - name: Generate Appcast
         working-directory: ${{ env.APPCAST_WORKDIR }}
         env:
