@@ -75,6 +75,7 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: '3.9.x'
+      - uses: sinoru/actions-setup-keychain@v1.0
       - name: Generate Appcast
         working-directory: ${{ env.APPCAST_WORKDIR }}
         env:
