@@ -49,6 +49,8 @@ def main():
     mkdir(ARCHIVE_PATH)
 
     for release in g.get_user().get_repo("m1necraft").get_releases():
+        if release.draft:
+            continue  # skip this release
         for asset in release.get_assets():
             if asset.name == f"{APP_NAME}.app.zip":
                 ver = release.tag_name.strip("v")
