@@ -42,6 +42,8 @@ def quoted(string: str) -> str:
 
 
 def main():
+    print(f"PRODUCTION: {PRODUCTION}")
+
     # Generate archives folder
     github_token = environ.get("GITHUB_TOKEN")
     assert github_token, "ERROR: GITHUB_TOKEN environment variable not found"
