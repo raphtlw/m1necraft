@@ -28,7 +28,7 @@ jobs:
       - name: Compress app bundle
         run: |
           mv ~/Library/Developer/Xcode/DerivedData/M1necraft-*/Build/Products/Release/M1necraft.app .
-          zip -r -y M1necraft.app.zip M1necraft.app
+          ditto -c -k --sequesterRsrc --keepParent M1necraft.app M1necraft.app.zip
       - name: Copy Sparkle distribution archive
         run: |
           cp -r ~/Library/Developer/Xcode/DerivedData/M1necraft-*/SourcePackages/artifacts/sparkle .
