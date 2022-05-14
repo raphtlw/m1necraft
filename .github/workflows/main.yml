@@ -58,37 +58,6 @@ jobs:
         with:
           files: ${{ github.workspace }}/M1necraft.app.zip
           generate_release_notes: true
-  update-appcast:
-    needs: [build, release]
-    runs-on: macos-latest
-    env:
-      APPCAST_WORKDIR: ${{ github.workspace }}/appcast
-    steps:
-      - uses: actions/checkout@v3
-      - name: Create ${{ env.APPCAST_WORKDIR }} directory
-        run: mkdir $APPCAST_WORKDIR
-      - uses: actions/download-artifact@v2
-        with:
-          name: sparkle_updater
-          path: ${{ env.APPCAST_WORKDIR }}/bin
-      - name: Install Python 3
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.9.x'
-      - uses: sinoru/actions-setup-keychain@v1.0
-      - name: Generate Appcast
-        working-directory: ${{ env.APPCAST_WORKDIR }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
-          SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
-        run: |
-          pip3 install -r ${{ github.workspace }}/requirements.txt
-          python3 ${{ github.workspace }}/scripts/update_appcast
-      - name: Publish Appcast
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
-        with:
-          branch: gh-pages
-          folder: ${{ env.APPCAST_WORKDIR }}
   bump-homebrew-cask:
     runs-on: macos-latest
     steps:
