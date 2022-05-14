@@ -7,7 +7,7 @@
     <language>en</language>
     <item>
                     <title>0.2.5 available!</title>
-                    <pubDate>2022-05-14 10:19:05</pubDate>
+                    <pubDate>2022-05-14 12:35:35</pubDate>
                     <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
                     <description><![CDATA[
                         **Full Changelog**: https://github.com/raphtlw/m1necraft/compare/v0.2.4...v0.2.5
@@ -17,7 +17,7 @@
                         url="https://github.com/raphtlw/m1necraft/releases/download/v0.2.5/M1necraft.app.zip"
                         sparkle:version="1"
                         sparkle:shortVersionString="0.2.5"
-                        sparkle:edSignature="4nWgZZmmkprmwfqXFFSVktoWVJk4UtAvu4cyM6u9vzynm+goCyzLHwQh1eUn/nqArkmMz9p+MuUoTn83zH9rDA==" length="6058750"
+                        sparkle:edSignature="Z1g/8rW55hw3qqaqydBpvnCrRoixo6pHvNEwv79aj/hgle5a/XZhL/HHQaDkD/GTUxQeiZiiyKBmEZf3P7uRBA==" length="6058845"
                         type="application/octet-stream"
                     />
                 </item>
