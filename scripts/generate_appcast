@@ -1,0 +1,182 @@
+#!/usr/bin/env python3
+
+from glob import glob
+from os import environ, mkdir, path, getcwd, system
+from pathlib import Path
+from shutil import rmtree
+import subprocess
+
+import wget
+from github import Github
+
+
+# Constants
+PRODUCTION = "CI" in environ
+DEVELOPMENT = not PRODUCTION
+
+APP_NAME = "M1necraft"
+DOWNLOAD_PATH = path.join(getcwd(), "releases")
+INFO_PLIST_RPATH = path.join("Contents", "Info.plist")
+APPCAST_FILENAME = "appcast.xml"
+APPCAST_PRE_FILENAME = "appcast-pre.xml"
+SPARKLE_PATH = glob(
+    path.join(
+        Path.home(),
+        "Library",
+        "Developer",
+        "Xcode",
+        "DerivedData",
+        f"{APP_NAME}-*",
+        "SourcePackages",
+        "artifacts",
+        "sparkle",
+    )
+)[0]
+PLISTBUDDY_PATH = "/" + path.join("usr", "libexec", "PlistBuddy")
+APPCAST_URL = (
+    f"https://raw.githubusercontent.com/raphtlw/m1necraft/gh-pages/appcast.xml"
+)
+
+
+def quoted(string: str) -> str:
+    return '"' + string + '"'
+
+
+def cmd(*args) -> str:
+    output = subprocess.check_output(" ".join(args), shell=True).decode("UTF-8")
+    return output[0:-1]  # Remove linebreak at end ('\n')
+
+
+def main():
+    # Check if there are uncommitted changes
+    # uncommitted_changes = subprocess.check_output(
+    #     "git diff-index HEAD --", shell=True
+    # ).decode("UTF-8")
+    # if len(uncommitted_changes) != 0:
+    #     raise Exception(
+    #         "There are uncommitted changes. Please commit or stash them before running this script."
+    #     )
+
+    # Get all releases from GitHub
+    github_token = environ.get("GITHUB_TOKEN")
+    assert github_token, "ERROR: GITHUB_TOKEN environment variable not found"
+
+    g = Github(github_token)
+
+    if path.exists(DOWNLOAD_PATH):
+        rmtree(DOWNLOAD_PATH)
+    mkdir(DOWNLOAD_PATH)
+
+    # Collect data to put into the appcast
+    appcast_items = []
+    appcast_pre_items = []
+
+    for release in g.get_user().get_repo("m1necraft").get_releases():
+        if release.draft:
+            continue  # skip this release
+        for asset in release.get_assets():
+            if asset.name == f"{APP_NAME}.app.zip":
+
+                # Add data to appcast_data
+                ver = release.tag_name.strip("v")
+
+                print(f"Processing release {ver}")
+
+                release_notes = release.body  # markdown
+                title = f"{ver} available!"
+                publishing_date = release.published_at
+                is_prerelease = release.prerelease
+                data_type = "application/octet-stream"
+                tag_name = release.tag_name
+                commit_number = cmd(f"git rev-list -n 1 {tag_name}")
+
+                # Download release asset
+                downloaded_path = f"{path.join(DOWNLOAD_PATH, APP_NAME)}.app.zip"
+                extracted_path = downloaded_path.removesuffix(".zip")
+                wget.download(
+                    asset.browser_download_url,
+                    downloaded_path,
+                )
+                print()
+
+                # Get edSignature
+                signature_and_length = cmd(
+                    path.join(SPARKLE_PATH, "bin", "sign_update"),
+                    downloaded_path,
+                )
+
+                # Unzip update
+                system(
+                    f'ditto -x -k --sequesterRsrc --rsrc "{downloaded_path}" "{DOWNLOAD_PATH}"'
+                )
+
+                # Find Info.plist
+                info_plist_path = path.join(extracted_path, INFO_PLIST_RPATH)
+
+                # Read Info.plist
+                bundle_version = cmd(
+                    PLISTBUDDY_PATH,
+                    quoted(info_plist_path),
+                    "-c",
+                    quoted("Print CFBundleVersion"),
+                )
+                minimum_macos_version = cmd(
+                    PLISTBUDDY_PATH,
+                    quoted(info_plist_path),
+                    "-c",
+                    quoted("Print LSMinimumSystemVersion"),
+                )
+
+                system(f"rm -rf {quoted(downloaded_path)} {quoted(extracted_path)}")
+
+                item_string = f"""
+                <item>
+                    <title>{title}</title>
+                    <pubDate>{publishing_date}</pubDate>
+                    <sparkle:minimumSystemVersion>{minimum_macos_version}</sparkle:minimumSystemVersion>
+                    <description><![CDATA[
+                        {release_notes}
+                    ]]>
+                    </description>
+                    <enclosure
+                        url=\"{asset.browser_download_url}\"
+                        sparkle:version=\"{bundle_version}\"
+                        sparkle:shortVersionString=\"{ver}\"
+                        {signature_and_length}
+                        type=\"{data_type}\"
+                    />
+                </item>
+                """.strip()
+                if not is_prerelease:
+                    appcast_items.append(item_string)
+
+                appcast_pre_items.append(item_string)
+
+    # Clean up downloaded files
+    clean_up()
+
+    appcast_items_string = "\n".join(appcast_items)
+    appcast_string = f"""
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle"  xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>{APP_NAME} Update Feed</title>
+    <link>{APPCAST_URL}</link>
+    <description>Stable releases of {APP_NAME}</description>
+    <language>en</language>
+    {appcast_items_string}
+  </channel>
+</rss>
+""".strip()
+
+    # Write to file
+    with open(APPCAST_FILENAME, "w") as f:
+        f.write(appcast_string)
+
+
+def clean_up():
+    system(f"rm -rf {quoted(DOWNLOAD_PATH)}")
+
+
+if __name__ == "__main__":
+    main()

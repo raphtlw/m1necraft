@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SUFeedURL</key>
+	<string>https://raw.githubusercontent.com/raphtlw/m1necraft/gh-pages/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>WDu4AtmCxAZkRI5HGVBzvmvrMu56VODgx/SFPtbPotc=</string>
+</dict>
+</plist>

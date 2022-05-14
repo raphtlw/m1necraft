@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+
+import subprocess
+from os import environ, mkdir, path, getcwd, system
+from pbxproj import XcodeProject
+
+
+PBXPROJ_PATH = path.join("M1necraft.xcodeproj", "project.pbxproj")
+PBXPROJ_PRODUCT_OBJECT_IDS = ["64243ADA276D9DEE009826F8", "64243ADB276D9DEE009826F8"]
+
+
+def quoted(string: str) -> str:
+    return '"' + string + '"'
+
+
+def cmd(*args) -> str:
+    output = subprocess.check_output(" ".join(args), shell=True).decode("UTF-8")
+    return output[:-1]  # Remove linebreak at end ('\n')
+
+
+def main():
+
+    # Get incremented Git tag
+    tag = cmd("git", "describe", "--tags", "--abbrev=0")
+    new_tag = tag[:-1] + str(int(tag[-1]) + 1)
+    ver = tag[1:]
+    new_ver = new_tag[1:]
+
+    # Check that Xcode project version is also updated
+    project = XcodeProject.load(PBXPROJ_PATH)
+    for obj_id in PBXPROJ_PRODUCT_OBJECT_IDS:
+        marketing_version: str = project.get_object(obj_id)["buildSettings"][
+            "MARKETING_VERSION"
+        ]
+        assert marketing_version, "Failed to get MARKETING_VERSION from Xcode project"
+        if marketing_version.strip() != new_ver:
+            raise Exception(
+                "Please update your version number in Xcode's project config!"
+            )
+
+    cmd("git", "tag", new_tag)
+    cmd("git", "push", "origin", new_tag)
+
+
+if __name__ == "__main__":
+    main()

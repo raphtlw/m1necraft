@@ -1,2 +1,3 @@
 PyGithub==1.55
 wget==3.2
+pbxproj==3.4.0

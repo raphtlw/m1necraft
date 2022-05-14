@@ -74,6 +74,7 @@
 		643F03BB28201CAD00C0066B /* Path.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Path.swift; sourceTree = "<group>"; };
 		643F03BF282034B300C0066B /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		64648385282571DF004FB9F2 /* AppUpdaterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdaterView.swift; sourceTree = "<group>"; };
+		64648387282FC030004FB9F2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		647D4DC827AE905B00EFC1FE /* AppStoreButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreButtonStyle.swift; sourceTree = "<group>"; };
 		647D4DCA27AFC6C900EFC1FE /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		647D4DCC27AFCA2000EFC1FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -147,6 +148,7 @@
 		64243AB6276D9DED009826F8 /* M1necraft */ = {
 			isa = PBXGroup;
 			children = (
+				64648387282FC030004FB9F2 /* Info.plist */,
 				643F03BA28201C8100C0066B /* Modules */,
 				64243AB7276D9DED009826F8 /* M1necraftApp.swift */,
 				64243AB9276D9DED009826F8 /* ContentView.swift */,
@@ -554,6 +556,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"M1necraft/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = M1necraft/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -581,6 +584,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"M1necraft/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = M1necraft/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
