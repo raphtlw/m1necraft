@@ -8,6 +8,7 @@ import subprocess
 
 import wget
 from github import Github
+from dotenv import load_dotenv
 
 
 # Constants
@@ -48,19 +49,19 @@ def cmd(*args) -> str:
 
 
 def main():
+    load_dotenv()
+
     # Check if there are uncommitted changes
-    # uncommitted_changes = subprocess.check_output(
-    #     "git diff-index HEAD --", shell=True
-    # ).decode("UTF-8")
-    # if len(uncommitted_changes) != 0:
-    #     raise Exception(
-    #         "There are uncommitted changes. Please commit or stash them before running this script."
-    #     )
+    uncommitted_changes = cmd("git diff-index HEAD --")
+    assert (
+        len(uncommitted_changes) == 0
+    ), "There are uncommitted changes. Please commit or stash them before running this script."
 
     # Get all releases from GitHub
     github_token = environ.get("GITHUB_TOKEN")
     assert github_token, "ERROR: GITHUB_TOKEN environment variable not found"
 
+    # just putting the token here because it's only scope is public_repo
     g = Github(github_token)
 
     if path.exists(DOWNLOAD_PATH):

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import subprocess
-from os import environ, mkdir, path, getcwd, system
+from os import path
 from pbxproj import XcodeProject
 
 

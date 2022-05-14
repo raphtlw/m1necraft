@@ -13,7 +13,11 @@
 
 ./scripts/generate_appcast || exit 1
 
+WORKDIR="$(mktemp -d)"
+
+mv appcast.xml "$WORKDIR"
 git checkout gh-pages || exit 1
+mv "$WORKDIR/appcast.xml" .
 git add appcast.xml
 git commit -m "Update appcast.xml"
 git push
