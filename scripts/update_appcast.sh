@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+TRACKED_FILES=(
+  'appcast.xml'
+)
+
 # Check for uncommitted changes, because git checkout is needed
 [[ "$(git diff-index HEAD)" ]] && {
   echo "There are uncommitted changes. Please commit or stash them before continuing!"
@@ -15,9 +19,9 @@
 
 WORKDIR="$(mktemp -d)"
 
-mv appcast.xml "$WORKDIR"
+mv "${TRACKED_FILES[@]}" "$WORKDIR"
 git checkout gh-pages || exit 1
-mv "$WORKDIR/appcast.xml" .
+mv "${TRACKED_FILES[@]/#/$WORKDIR/}" .
 git add appcast.xml
 git commit -m "Update appcast.xml"
 git push
