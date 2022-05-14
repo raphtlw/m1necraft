@@ -19,6 +19,11 @@ def cmd(*args) -> str:
 
 
 def main():
+    # Check if there are uncommitted changes
+    uncommitted_changes = cmd("git diff-index HEAD --")
+    assert (
+        len(uncommitted_changes) == 0
+    ), "There are uncommitted changes. Please commit or stash them before running this script."
 
     # Get incremented Git tag
     tag = cmd("git", "describe", "--tags", "--abbrev=0")
