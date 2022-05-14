@@ -47,6 +47,10 @@ struct SettingsView: View {
                         }
                     }
                 }
+                
+                Button("Check for Updates") {
+                    updater.checkForUpdates()
+                }
             }
         }
         .padding(.all, 20)
